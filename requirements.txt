@@ -1,0 +1,63 @@
+# bspwm
+bspwm sxhkd wmctrl dmenu rxvt-unicode redshift xrandr wmname slock noto-fonts-cjk ttf-fira-code ttf-fira-mono ttf-hack xorg-xinput xorg-xev xorg-server xorg-xinit xf86-video-intel xf86-input-libinput
+
+# image
+imagemagick sxiv scrot
+
+# zathura
+poppler-data zathura zathura-pdf-poppler
+
+# sound
+mpc ncmpcpp alsa-utils pulseaudio pulsemixer
+
+# dev
+gdb jdk8-openjdk sqlite3 git docker docker-compose pandoc qemu jq parallel parallel-docs python python-dev python-pip base-devel vim time tre usbutils openblas graphviz tbb make cmake shellcheck unzip man sudo expect libxml xmlstarlet
+
+# dev2
+duckdb
+
+# chat
+weechat
+
+# internet
+firefox w3m chromium qutebrowser dhclient dhcpcd netctl dialog wpa_supplicant curl wget vsftpd remmina openvpn rsync openssh sshpass gnu-netcat
+
+# cac
+ccid opensc
+
+# tex
+texlive-core texlive-langjapanese texlive-langchinese texinfo
+
+# video
+mpv gst-plugins-good gst-plugins-bad
+
+# torrent
+rtorrent youtube-dl
+
+# tesseract
+tesseract tesseract-data-jpn tesseract-data-eng tesseract-data-chi_sim tesseract-data-chi_tra
+
+# python
+xml beautifulsoup4 flask numpy scipy scikit-learn tensorflow pillow matplotlib urwid pandas networkx dask toolz flask-cors numba icc-rt nmslib aesara scikit-image pyyaml tqdm pyarrow duckdb pylint pyarrow plotext
+
+# grub
+grub efibootmgr intel-ucode
+
+# input
+nuspell opencc enchant fcitx fcitx-libpinyin fcitx-mozc fcitx-configtool hunspell-en_US
+
+# word processing
+libreoffice
+
+# printing
+cups avahi python-gobject python-dbus ghostscript
+
+# bluetooth
+bluez bluez-utils
+
+# disk recovery
+testdisk
+
+# android
+# * https://wiki.archlinux.org/index.php/Android_Debug_Bridge
+android-tools android-udev
