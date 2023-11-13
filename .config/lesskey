@@ -1,0 +1,5 @@
+#command
+h left-scroll
+l right-scroll
+i prev-file
+o next-file
