@@ -5,7 +5,7 @@
 "    languages: a dictionary of file extensions and their respective comments
 
 let s:comments = ['//', '#', '"', '<!--']
-let s:languages = {'java': s:comments[0], 'cpp': s:comments[0], 'c': s:comments[0], 'css': s:comments[0], 'py': s:comments[1], 'sh': s:comments[1], 'vim': s:comments[2], 'html': s:comments[3]}
+let s:languages = {'java': s:comments[0], 'cpp': s:comments[0], 'h': s:comments[0], 'c': s:comments[0], 'css': s:comments[0], 'py': s:comments[1], 'sh': s:comments[1], 'vim': s:comments[2], 'html': s:comments[3]}
 
 " Gets the file type of the current file and sets the appropriate comment.
 " This should be called whenever a new buffer is opened so that the
@@ -63,4 +63,14 @@ function Comment() range
         call setline(line_idx, s)
         let line_idx = line_idx + 1
     endfor
+endfunction
+
+function ForLoop() range
+    let line_idx = a:firstline
+    let s = 'for aj in a:'
+    call setline(line_idx, s)
+
+    let line_idx = line_idx + 1
+    let s = "\t" . 'pass'
+    call setline(line_idx, s)
 endfunction

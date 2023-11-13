@@ -1,56 +1,51 @@
-"%% SiSU Vim color file
-" Slate Maintainer: Ralph Amissah <ralph@amissah.com>
-" (originally looked at desert Hans Fugal <hans@fugal.net> http://hans.fugal.net/vim/colors/desert.vim (2003/05/06)
-:set background=dark
-:highlight clear
-if version > 580
- hi clear
- if exists("syntax_on")
- syntax reset
- endif
+" The colors correspond to those displayed by running:
+"   for COLOR in {1..255}; do echo -en "\e[38;5;${COLOR}m${COLOR} "; done; echo;
+"
+" Init
+hi clear
+if exists("syntax_on")
+  syntax reset
 endif
-let colors_name = "deku"
-:hi Normal ctermfg=246
-:hi VertSplit cterm=reverse
-:hi Folded ctermfg=7 ctermbg=8
-:hi ModeMsg ctermfg=7
-:hi Search ctermfg=7 ctermbg=1
-:hi SpecialKey ctermfg=3
-:hi Visual ctermbg=8 ctermfg=0
-:hi Special guifg=darkkhaki ctermfg=14
-:hi Include  ctermfg=1
-:hi PreProc ctermfg=1
-:hi Define ctermfg=1
-:hi LineNr  ctermfg=241
+let colors_name="deku"
+set background=dark
+"
+"" General Colors
+" 1
+" 4
+" 7
+" 13
+" 36
+" 40
+" 52
+" 58
+hi Normal ctermfg=252
+hi NonText ctermfg=252
+hi Underlined ctermfg=252
+hi Ignore ctermfg=252
+hi Identifier ctermfg=252
+hi Type ctermfg=252
 
-:hi Pmenu ctermbg=1
-:hi PmenuSel ctermbg=0 ctermfg=1
+hi Comment ctermfg=100
 
-" Keywords
-:hi Identifier ctermfg=1
-:hi Repeat ctermfg=1
-:hi Conditional ctermfg=1
-:hi Statement ctermfg=1
-:hi Exception ctermfg=1
-:hi StorageClass ctermfg=1
-:hi Type ctermfg=1
-:hi Constant ctermfg=1
-:hi Typedef ctermfg=1
-:hi Boolean ctermfg=1
-:hi Operator ctermfg=1
-:hi Structure ctermfg=1
-" Numbers
-:hi Number ctermfg=6
-" Strings
-:hi Character ctermfg=6
-:hi String ctermfg=6
-" Include
-" Comment
-:hi Comment ctermfg=241
-" Functions
-:hi Function ctermfg=246
+" 136
+hi String ctermfg=172
+hi Character ctermfg=172
+hi Special ctermfg=172
 
-" Operators and Parentheses
-:hi Paren ctermfg=7
-:hi Oper ctermfg=8
-":hi Operator ctermfg=8
+hi Number ctermfg=142
+hi Boolean ctermfg=142
+hi Float ctermfg=142
+
+hi SpecialKey ctermfg=5
+
+hi Keyword ctermfg=110
+hi Statement ctermfg=110
+hi PreProc ctermfg=110
+hi MatchParen ctermbg=110 ctermfg=4
+hi Operator ctermfg=110
+
+hi Error ctermbg=none ctermfg=1
+hi ErrorMsg ctermbg=1 ctermfg=7
+hi Todo ctermbg=none ctermfg=1
+
+hi Search ctermbg=136 ctermfg=4
