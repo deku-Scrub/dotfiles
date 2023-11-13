@@ -8,7 +8,7 @@ imagemagick sxiv scrot
 poppler-data zathura zathura-pdf-poppler
 
 # sound
-mpc ncmpcpp alsa-utils pulseaudio pulsemixer
+mpd mpc ncmpcpp alsa-utils pulseaudio pulsemixer
 
 # dev
 gdb jdk8-openjdk sqlite3 git docker docker-compose pandoc qemu jq parallel parallel-docs python python-dev python-pip base-devel vim time tre usbutils openblas graphviz tbb make cmake shellcheck unzip man sudo expect libxml xmlstarlet
