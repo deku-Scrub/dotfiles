@@ -1,0 +1,28 @@
+## Check for all connected displays
+
+```
+xrandr | grep ' connected '
+```
+
+## Turn on a display
+
+Let `eDP2` and `DisplayPort-1-1` be the names of connected displays.
+
+```
+xrandr --auto
+xrandr --output DisplayPort-1-1 --left-of eDP2
+```
+
+If the connected content does not use the entire display, then `xrandr` will show compatible resolutions.  The following would use `3840x2160` resolution to show the contents:
+
+```
+xrandr --output DisplayPort-1-1 --mode 3840x2160 --left-of eDP2
+```
+
+## Turn off display
+
+Disconnect the display and then run:
+
+```
+xrandr --auto
+```

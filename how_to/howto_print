@@ -1,0 +1,14 @@
+# NOTE: Next time, get a better printer.
+# https://wiki.gentoo.org/wiki/Brother_networked_printer
+# Download https://aur.archlinux.org/packages/brother-hll2350dw/
+# tar -xf X
+# cd X
+# make -si
+sudo systemctl start org.cups.cupsd.service
+sudo systemctl start avahi-daemon.service
+avahi-discover # Shows URL.
+sudo lpinfo -m # Shows PPD.
+sudo lpinfo -v # Shows URI.
+sudo lpadmin -p Brother_HL-L2350DW -E -v lpd://192.168.1.5 -m brother-HLL2350DW-cups-en.ppd
+lpstat -d -l -t
+lpr -o media=letter -o sides=two-sided-long-edge -P Brother_HL-L2350DW a.pdf

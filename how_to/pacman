@@ -53,3 +53,6 @@ is being updated:
     $ mv /mnt/*.pkg.tar.xz /var/cache/pacman/pkg
     $ sudo pacman -S package_name
     $ sudo pacman -Su
+
+# UPDATE KEYRING
+pacman -Sy archlinux-keyring && pacman -Su
