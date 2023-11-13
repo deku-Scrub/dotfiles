@@ -1,10 +1,8 @@
-xrdb ~/.Xresources &
-/home/deku/scripts/deku_BG.sh
-mkfontscale /home/deku/.local/share/fonts/
-mkfontdir /home/deku/.local/share/fonts/
-xset +fp /home/deku/.local/share/fonts/
-fc-cache -fv
+xrdb ~/.Xresources
 
-#exec awesome
-#sxhkd &
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+fcitx &
+
 exec bspwm
