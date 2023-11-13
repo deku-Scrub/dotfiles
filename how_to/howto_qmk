@@ -1,0 +1,18 @@
+# deps
+sudo pacman -S git python-pip libffi qmk
+
+# clone into qmk_firmware
+qmk setup --home /home/deku/code/qmk_firmware
+
+# test, should work (output:  * The firmware size is fine - 26748/28672 (93%, 1924 bytes free))
+qmk compile -kb clueboard/66/rev3 -km default
+
+# make new layout based on default
+qmk new-keymap -kb moonlander-layout
+
+# compile and flash new layout
+qmk compile -kb moonlander-layout -km moonlander-layout
+qmk flash -kb moonlander-layout -km moonlander-layout
+
+Functions `MO`, `LM`, and `LT` switch to a layer as long as a key is held.
+Functions `OSL`, `TG`, and `TO` switch to a layer on tap.

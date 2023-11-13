@@ -14,6 +14,12 @@ Intall Ubuntu 16.04:
     # The last two numbers are found using lsusb.
     qemu-system-x86_64 -hda ubuntu_test -boot d -m 2000 -enable-kvm -usbdevice host:0781:5581
 
+    # Port-forwarding (on host, run `ssh -p 9832 root@localhost`).
+    qemu-system-x86_64 -hda centos7 -boot d -m 2000 -enable-kvm -nic user,hostfwd=tcp::9832-:22
+
+    # This might be needed on the guest to connect to the internet.
+    dhclient <device name>
+
 References:
 [1] https://www.unixmen.com/how-to-install-and-configure-qemu-in-ubuntu/
 [2] https://wiki.archlinux.org/index.php/QEMU#Running_virtualized_system

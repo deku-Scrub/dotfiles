@@ -1,0 +1,2 @@
+https://askubuntu.com/questions/333287/how-to-fix-external-hard-disk-read-only
+id; sudo mount -o uid=1000,gid=1000,rw /dev/sdb1 /mnt/;
