@@ -1,6 +1,6 @@
 [user]
-    name = dekuRockShooter
-    email = dekuRockShooter@gmail.com
+    name = David Rodriguez
+    email = david.rodriguez@caci.com
 [core]
     editor = vim
 [alias]
@@ -14,8 +14,14 @@
     bd = branch -d
     bnm = branch --no-merged
     bm = branch --merged
-	ch = checkout
-	f = fetch --all
-	p = push
-	m = merge
-	a = add
+    ch = checkout
+    f = fetch --all
+    p = push
+    m = merge
+    a = add
+    d = diff
+    dc = diff --cached
+[credential]
+    helper = cache
+[init]
+	defaultBranch = main
