@@ -7,8 +7,10 @@ super + semicolon
         bash ~/.config/bspwm/scripts/switch_window.sh
         #echo ""$(date)" | "$(cat /sys/class/power_supply/BAT0/uevent | grep 'CAPACITY=')" | "$(free -m | tail -n +2 | head -n 1 | grep -o -E '\w+$')" MB" | dmenu -fn 'fira code'
 
-# HJKL row
-# focus the node in the given direction
+# hjkl/HJKL row
+# focus/swap the node in the given direction
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
 super + shift + {h,j,k,l}
 	bspc node -s {west,south,north,east}
 
@@ -20,29 +22,21 @@ super + {y,u,i,o}
 super + p
 	bspc desktop -f last
 
-# YUIOP row
-# preselect the direction
-super + shift + {y,u,i,o}
-	bspc node -p {west,south,north,east}
-# cancel the preselection for the focused node
-super + shift + p
-	bspc node -p cancel
-
-# nm,./ row
-# contract a window by moving one of its side inward
-super + {n,m,comma,period}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 # make sxhkd reload its configuration files:
 super + slash
 	pkill -USR1 -x sxhkd
 
 # asdfg row
 # set the window state
-super + {a,s}
-	bspc node -t {floating,tiled}
-# terminal emulator
+super + a
+	bspc node -t tiled
+super + shift + a
+	bspc node -t floating
+# new window
 super + d
-	urxvt -cd /tmp
+	bspc node -p south; urxvt -cd /tmp
+super + shift + d
+	bspc node -p east; urxvt -cd /tmp
 # alternate between the tiled and monocle layout
 super + f
 	bspc desktop -l next
@@ -50,64 +44,23 @@ super + f
 super + {_,shift + }g
 	bspc node -{c,k}
 
-# hjkl; row
-# focus the next/previous desktop in the current monitor
-super + h
-	bspc desktop -f next.local
 # focus the next/previous node in the current desktop
-super + {j,k}
-        bspc node -f {next,prev}.local.window
-# rotate
-super + l
-	bspc node '@/' -R 90
+super + {n,m}
+    bspc node -f {next,prev}.local.window
+super + shift + {n,m}
+	bspc desktop -f {next,prev}.local
 
-# esdf row
-# move a floating window
-super + shift + {e,s,d,f}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
-
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+#super + space
+	#bspc node -p south; urxvt -cd /tmp -e echo lol; bspc node -t floating; bspc node -{c,k}
 
 # qwert row
 # focus the last node/desktop
 super + e
 	bspc node -f last
+# rotate
+super + r
+	bspc node '@/' -R 90
 
-#
-# preselect/move/resize
-#
-
-## cancel the preselection for the focused desktop
-#super + ctrl + shift + space
-        #bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
-#
 ## quit bspwm normally
 #super + alt + Escape
     #bspc quit
-#
-## if the current node is automatic, send it to the last manual, otherwise pull the last leaf
-#super + y
-        #bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
-#
-## swap the current node and the biggest node
-#super + g
-#	bspc node -s biggest
-#
-## set the node flags
-#super + ctrl + {x,y,z}
-        #bspc node -g {locked,sticky,private}
-#
-## focus the node for the given path jump
-#super + {p,b,comma,period}
-        #bspc node -f @{parent,brother,first,second}
-#
-## focus the older or newer node in the focus history
-#super + {o,i}
-        #bspc wm -h off; \
-        #bspc node {older,newer} -f; \
-        #bspc wm -h on
-# focus the next/previous node in the current desktop
-#super + {_,shift + }c
-        #bspc node -f {next,prev}.local
