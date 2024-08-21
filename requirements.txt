@@ -1,5 +1,5 @@
 # bspwm
-bspwm sxhkd wmctrl dmenu rxvt-unicode redshift xrandr wmname slock noto-fonts-cjk ttf-fira-code ttf-fira-mono ttf-hack xorg-xinput xorg-xev xorg-server xorg-xinit xf86-video-intel xf86-input-libinput
+bspwm sxhkd wmctrl dmenu rxvt-unicode redshift xorg-xrandr wmname slock noto-fonts-cjk ttf-fira-code ttf-fira-mono ttf-hack xorg-xinput xorg-xev xorg-server xorg-xinit xf86-video-intel xf86-input-libinput
 
 # image
 imagemagick sxiv scrot
