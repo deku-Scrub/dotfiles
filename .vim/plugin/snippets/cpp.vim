@@ -1,174 +1,154 @@
-vim9script
-import "../snippets.vim" as snippets
-# tuple, pair
+let g:file_ext_to_snippet_map['cpp'] = {
+    \ 'bm': [
+        \ "auto t0 = std::chrono::steady_clock::now();",
+        \ "",
+        \ "auto t1 = std::chrono::steady_clock::now();",
+        \ "std::chrono::duration<double> init_time = t1 - t0;",
+    \ ],
+    \ 'fma': [
+        \ "auto main(int argc, char *argv[]) -> int {",
+        \ "return 0;",
+        \ "}",
+    \ ],
+    \ 'tu': [
+        \ "std::tuple<>",
+    \ ],
+    \ 'ae': [
+        \ "auto a = std::array<A, n>();",
+    \ ],
+    \ 'len': [
+        \ "std::size()",
+    \ ],
+    \ 'ar': [
+        \ "std::array<A, n>",
+    \ ],
+    \ 've': [
+        \ "auto v = std::vector<A>();",
+    \ ],
+    \ 'vv': [
+        \ "std::vector<A>",
+    \ ],
+    \ 'seq': [
+        \ "auto v = std::unordered_set<A>();",
+    \ ],
+    \ 'se': [
+        \ "std::unordered_set<A>",
+    \ ],
+    \ 'me': [
+        \ "auto v = std::unordered_map<A, A>();",
+    \ ],
+    \ 'ma': [
+        \ "std::unordered_map<A, A>",
+    \ ],
+    \ 'lam': [
+        \ "[&](auto& a) { return a; };",
+    \ ],
+    \ 'ci': [
+        \ "std::cin >> a;",
+    \ ],
+    \ 'ce': [
+        \ "std::cerr << a << std::endl;",
+    \ ],
+    \ 'co': [
+        \ "std::cout << a << std::endl;",
+    \ ],
+    \ 'cl': [
+        \ "/**",
+        \ "*/",
+        \ "class A {",
+        \ "",
+        \ "public:",
+        \ "/**",
+        \ "*/",
+        \ "A();",
+        \ "",
+        \ "private:",
+        \ "//",
+        \ "}",
+    \ ],
+    \ 'st': [
+        \ "/**",
+        \ "*/",
+        \ "struct A {",
+        \ "};",
+    \ ],
+    \ 'fme': [
+        \ "/**",
+        \ "*/",
+        \ "auto A::f() -> void {",
+        \ "}",
+    \ ],
+    \ 'fs': [
+        \ "auto f() -> void;",
+    \ ],
+    \ 'fx': [
+        \ "/**",
+        \ "*/",
+        \ "auto f() -> void {",
+        \ "}",
+    \ ],
+    \ 'tr': [
+        \ "try {",
+        \ "}",
+        \ "catch (std::exception& e) {",
+        \ "}",
+    \ ],
+    \ 'ife': [
+        \ "else {",
+        \ "}",
+    \ ],
+    \ 'iff': [
+        \ "if (a) {",
+        \ "}",
+    \ ],
+    \ 'elif': [
+        \ "else if (a) {",
+        \ "}",
+    \ ],
+    \ 'wl': [
+        \ "while (a) {",
+        \ "}",
+    \ ],
+    \ 'fel': [
+        \ "for (const auto& aj : a) {",
+        \ "}",
+    \ ],
+    \ 'fl': [
+        \ "for (int j = 0; j < n; ++j) {",
+        \ "}",
+    \ ],
+\ 'ss': [
+\ "std::string",
+\ ],
+\ 'ch': [
+\ "''",
+\ ],
+\ 'sl': [
+\ "\"\"",
+\ ],
+\ 'mls': [
+\ "std::string a = \\",
+\ "\"\" \\",
+\ "+ \"\" \\",
+\ "+ \"\";",
+\ ],
+\ 'ssf': [
+\ "std::string a = \\",
+\ "\"\" \\",
+\ "+ \"\" \\",
+\ "+ \"\";",
+\ ],
+    "\ 'movable': [ "&&", ],
+    \ 'ttt': [ "std::pow(a, b)", ],
+    \ 'im': [ "#include <>", ],
+    \ 'imc': [ "#include ''", ],
+    \ 'val': [ "*", ],
+    "\ 'uniquepointer': [ "std::unique_ptr<A>", ],
+    "\ 'uniquepointereq': [ "auto a = std::make_unique<A>()", ],
+    \ 'sd': [ "std::", ],
+\ }
 
-var cpp_snippets = {
-    'main': [
-        "auto main(int argc, char *argv[]) -> int {",
-        "return 0;",
-        "}",
-    ],
-    'arreq': [
-        "auto a = std::array<A, n>();",
-    ],
-    'arr': [
-        "std::array<A, n>",
-    ],
-    'veceq': [
-        "auto v = std::vector<A>();",
-    ],
-    'vec': [
-        "std::vector<A>",
-    ],
-    'seteq': [
-        "auto v = std::unordered_set<A>();",
-    ],
-    'set': [
-        "std::unordered_set<A>",
-    ],
-    'mapeq': [
-        "auto v = std::unordered_map<A, A>();",
-    ],
-    'map': [
-        "std::unordered_map<A, A>",
-    ],
-    'lambda': [
-        "[&](auto& a) { return a; };",
-    ],
-    'cin': [
-        "std::cin >> a;",
-    ],
-    'cerr': [
-        "std::cerr << a << std::endl;",
-    ],
-    'cout': [
-        "std::cout << a << std::endl;",
-    ],
-    'class': [
-        "/**",
-        "*/",
-        "class A {",
-        "",
-        "public:",
-        "/**",
-        "*/",
-        "A();",
-        "",
-        "private:",
-        "//",
-        "}",
-    ],
-    'struct': [
-        "/**",
-        "*/",
-        "struct A {",
-        "};",
-    ],
-    'meth': [
-        "/**",
-        "*/",
-        "auto A::f() -> void {",
-        "}",
-    ],
-    'sig': [
-        "auto f() -> void;",
-    ],
-    'func': [
-        "/**",
-        "*/",
-        "auto f() -> void {",
-        "}",
-    ],
-    'try': [
-        "try {",
-        "}",
-        "catch (std::exception& e) {",
-        "}",
-    ],
-    'else': [
-        "else {",
-        "}",
-    ],
-    'if': [
-        "if (a) {",
-        "}",
-    ],
-    'elif': [
-        "else if (a) {",
-        "}",
-    ],
-    'while': [
-        "while (a) {",
-        "}",
-    ],
-    'foreach': [
-        "for (const auto& aj : a) {",
-        "}",
-    ],
-    'for': [
-        "for (int j = 0; j < n; ++j) {",
-        "}",
-    ],
-'stringtype': [
-"std::string",
-],
-'char': [
-"''",
-],
-'string': [
-"\"\"",
-],
-'multilinestring': [
-"std::string a = \\",
-"\"\" \\",
-"+ \"\" \\",
-"+ \"\";",
-],
-'stringformat': [
-"std::string a = \\",
-"\"\" \\",
-"+ \"\" \\",
-"+ \"\";",
-],
-    'movable': [ "&&", ],
-    'lessthan': [ "<", ],
-    'lessthaneq': [ "<=", ],
-    'greaterthan': [ ">", ],
-    'greaterthaneq': [ ">=", ],
-    'logicaleq': [ "==", ],
-    'noteq': [ "!=", ],
-    'not': [ "!", ],
-    'and': [ "&&", ],
-    'or': [ "||", ],
-    'xor': [ "^", ],
-    'group': [ "()", ],
-    'ternary': [ "a ? b : c;", ],
-    'leftshift': [ "<<", ],
-    'rightshift': [ ">>", ],
-    'bitwisenot': [ "~", ],
-    'bitwiseand': [ "&", ],
-    'bitwiseor': [ "|", ],
-    'bitwisexor': [ "^", ],
-    'equal': [ "=", ],
-    'assignment': [ ":=", ],
-    'plus': [ "+", ],
-    'minus': [ "-", ],
-    'times': [ "*", ],
-    'divide': [ "/", ],
-    'power': [ "std::pow(a, b)", ],
-    'mod': [ "%", ],
-    'import': [ "#include <>", ],
-    'cimport': [ "#include ''", ],
-    'addressof': [ "&", ],
-    'valueof': [ "*", ],
-    'uniquepointer': [ "std::unique_ptr<A>", ],
-    'uniquepointereq': [ "auto a = std::make_unique<A>()", ],
-    'std': [ "std::", ],
-}
-
-snippets.Lol('cpp', cpp_snippets)
-snippets.Lol('cxx', cpp_snippets)
-snippets.Lol('cc', cpp_snippets)
-snippets.Lol('c', cpp_snippets)
-snippets.Lol('h', cpp_snippets)
-snippets.Lol('hpp', cpp_snippets)
+let g:file_ext_to_snippet_map['cxx'] = g:file_ext_to_snippet_map['cpp']
+let g:file_ext_to_snippet_map['c'] = g:file_ext_to_snippet_map['cpp']
+let g:file_ext_to_snippet_map['h'] = g:file_ext_to_snippet_map['cpp']
+let g:file_ext_to_snippet_map['hpp'] = g:file_ext_to_snippet_map['cpp']

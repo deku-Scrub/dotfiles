@@ -107,8 +107,8 @@ map ]] k0[[>/{<CR>
 noremap <Space>ls :ls<CR>:b<Space>
 noremap <Space>spl :split<CR>
 noremap <Space>pp :b#<CR>
-noremap <Space>co :call Comment()<CR>
-noremap <Space>nco :call Uncomment()<CR>
+noremap <Space>co :call Comment(v:false)<CR>
+noremap <Space>nco :call Uncomment(v:true)<CR>
 noremap <Space>; :
 noremap <Space><Space> :write<CR>:mksession!<CR>
 
@@ -234,8 +234,7 @@ autocmd BufNewFile,BufRead *.* syntax match Oper /[!%^&*;:\-+=<>,.]/
 autocmd BufNewFile,BufRead *.* syn match dFunction "\zs\(\k\w*\)*\s*\ze("
 autocmd BufNewFile,BufRead *.* set tabstop=4
 autocmd BufNewFile,BufRead *.* retab 8
-autocmd BufEnter *.* call ReloadComment() 
-autocmd BufEnter *.* call ReloadSnippets() 
+source ~/.vim/plugin/snippets.vim
 
 " Commands
 " command Name action

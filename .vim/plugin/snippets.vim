@@ -1,70 +1,12 @@
-vim9script noclear
-# tuple, pair
-if exists("g:ext_to_abbrvs")
+if exists("g:file_ext_to_snippet_map")
     finish
 endif
-g:ext_to_abbrvs = {}
-g:abbrv_to_snippet = {}
 
-export def Lol(a: string, b: dict<list<string>>)
-    g:ext_to_abbrvs[a] = b
-enddef
 
-def g:InsertSnippet(snippet_name: string): bool
-    if !has_key(g:abbrv_to_snippet, snippet_name)
-        return false
-    endif
 
-    var lines = g:abbrv_to_snippet[snippet_name]
-    var beg = line(".")
-    var endidx = beg + len(lines) - 1
-    var k = 0
-    for line in lines
-        setline(beg + k, line)
-        execute $"normal ==o"
-        k += 1
-    endfor
-    execute $"normal dd"
-    execute $"normal {beg}G^"
-    return true
-enddef
 
-def g:ReloadSnippets()
-    var file_ext = expand("%:e")
-    if has_key(g:ext_to_abbrvs, file_ext)
-        g:abbrv_to_snippet = g:ext_to_abbrvs[file_ext]
-    else
-        g:abbrv_to_snippet = {}
-    endif
-enddef
 
-def g:Eatchar(oldstr: string, newstr: string, inplace: bool): string
-    var c = nr2char(getchar(0))
 
-    if !has_key(g:abbrv_to_snippet, newstr)
-        return $"{oldstr}{c}"
-    endif
-
-    var s = ''
-    if (c == ' ') || (c == '.')
-        if inplace
-            s = g:abbrv_to_snippet[newstr][0]
-
-            if c == ' '
-                s = $"{s} "
-            endif
-        else
-            var i = g:InsertSnippet(newstr)
-            s = i ? "" : $"{oldstr}{c}"
-        endif
-    else
-        s = $"{oldstr}{c}"
-    endif
-
-    return s
-enddef
-
-noremap <unique> / /\v
 noremap <unique> <Space>sed :s/\v
 noremap <unique> <Space>sd *
 noremap <unique> <Space>su #
@@ -91,110 +33,231 @@ noremap <unique> J <C-e>
 noremap <unique> H ^
 noremap <unique> L $
 
-# <unique> Namespaces.
-iabbr <unique> std <C-R>=Eatchar('std', 'std', v:true)<CR>
+" <unique> Namespaces.
+iabbr <unique> sd <C-R>=PrintSnippet('sd')<CR>
 
-# <unique> Types.
-iabbr <unique> ar <C-R>=Eatchar('ar', 'arr', v:true)<CR>
-iabbr <unique> are <C-R>=Eatchar('are', 'arreq', v:false)<CR>
-iabbr <unique> v <C-R>=Eatchar('vec', 'vec', v:true)<CR>
-iabbr <unique> ve <C-R>=Eatchar('ve', 'veceq', v:false)<CR>
-iabbr <unique> set <C-R>=Eatchar('set', 'set', v:true)<CR>
-iabbr <unique> sete <C-R>=Eatchar('sete', 'seteq', v:false)<CR>
-iabbr <unique> map <C-R>=Eatchar('map', 'map', v:true)<CR>
-iabbr <unique> mape <C-R>=Eatchar('mape', 'mapeq', v:false)<CR>
-iabbr <unique> qe_ <C-R>=Eatchar('qe', 'queueeq', v:false)<CR>
-iabbr <unique> lste_ <C-R>=Eatchar('lste', 'listeq', v:false)<CR>
-iabbr <unique> hpe_ <C-R>=Eatchar('hpe', 'heapeq', v:false)<CR>
-iabbr <unique> sl <C-R>=Eatchar('sl', 'string', v:true)<CR>
-iabbr <unique> s <C-R>=Eatchar('s', 'stringtype', v:true)<CR>
-iabbr <unique> ch <C-R>=Eatchar('ch', 'char', v:true)<CR>
-iabbr <unique> mls <C-R>=Eatchar('mls', 'multilinestring', v:false)<CR>
-iabbr <unique> strf <C-R>=Eatchar('strf', 'stringformat', v:true)<CR>
-iabbr <unique> mv <C-R>=Eatchar('mv', 'movable', v:true)<CR>
+" <unique> Types.
+iabbr <unique> ar <C-R>=PrintSnippet('ar')<CR>
+iabbr <unique> are <C-R>=PrintSnippet('ae')<CR>
+iabbr <unique> vv <C-R>=PrintSnippet('vv')<CR>
+iabbr <unique> ve <C-R>=PrintSnippet('ve')<CR>
+iabbr <unique> se <C-R>=PrintSnippet('se')<CR>
+iabbr <unique> seq <C-R>=PrintSnippet('seq')<CR>
+iabbr <unique> ma <C-R>=PrintSnippet('ma')<CR>
+iabbr <unique> mae <C-R>=PrintSnippet('mae')<CR>
+iabbr <unique> qe <C-R>=PrintSnippet('qe')<CR>
+iabbr <unique> lste_ <C-R>=PrintSnippet('lste')<CR>
+iabbr <unique> hpe_ <C-R>=PrintSnippet('hpe')<CR>
+iabbr <unique> sl <C-R>=PrintSnippet('sl')<CR>
+iabbr <unique> ss <C-R>=PrintSnippet('ss')<CR>
+iabbr <unique> ch <C-R>=PrintSnippet('ch')<CR>
+iabbr <unique> mls <C-R>=PrintSnippet('mls')<CR>
+iabbr <unique> ssf <C-R>=PrintSnippet('ssf')<CR>
+iabbr <unique> mv <C-R>=PrintSnippet('mv')<CR>
+iabbr <unique> tu <C-R>=PrintSnippet('tu')<CR>
+iabbr <unique> tue <C-R>=PrintSnippet('tue')<CR>
 
-# <unique> Conditionals.
-iabbr <unique> elif <C-R>=Eatchar('elif', 'elif', v:false)<CR>
-iabbr <unique> if <C-R>=Eatchar('if', 'if', v:false)<CR>
-iabbr <unique> else <C-R>=Eatchar('else', 'else', v:false)<CR>
-iabbr <unique> switch_ <C-R>=Eatchar('switch', 'switch', v:false)<CR>
-iabbr <unique> case_ <C-R>=Eatchar('case', 'case', v:false)<CR>
-iabbr <unique> ter <C-R>=Eatchar('ter', 'ternary', v:true)<CR>
+" <unique> Conditionals.
+iabbr <unique> elif <C-R>=PrintSnippet('elif')<CR>
+iabbr <unique> iff <C-R>=PrintSnippet('iff')<CR>
+iabbr <unique> ife <C-R>=PrintSnippet('ife')<CR>
+iabbr <unique> sw <C-R>=PrintSnippet('sw')<CR>
+iabbr <unique> swc <C-R>=PrintSnippet('swc')<CR>
+iabbr <unique> ter <C-R>=PrintSnippet('ter')<CR>
 
-# <unique> Loops.
-iabbr <unique> f <C-R>=Eatchar('f', 'for', v:false)<CR>
-iabbr <unique> fe <C-R>=Eatchar('fe', 'foreach', v:false)<CR>
-iabbr <unique> wh <C-R>=Eatchar('wh', 'while', v:false)<CR>
-iabbr <unique> dow_ <C-R>=Eatchar('dow', 'dowhile', v:false)<CR>
+" <unique> Loops.
+iabbr <unique> fl <C-R>=PrintSnippet('fl')<CR>
+iabbr <unique> fel <C-R>=PrintSnippet('fel')<CR>
+iabbr <unique> wl <C-R>=PrintSnippet('wl')<CR>
+iabbr <unique> dwl <C-R>=PrintSnippet('dwl')<CR>
 
-# <unique> Printing.
-iabbr <unique> co <C-R>=Eatchar('co', 'cout', v:false)<CR>
-iabbr <unique> ci <C-R>=Eatchar('ci', 'cin', v:false)<CR>
-iabbr <unique> ce <C-R>=Eatchar('ce', 'cerr', v:false)<CR>
+" <unique> Printing.
+iabbr <unique> co <C-R>=PrintSnippet('co')<CR>
+iabbr <unique> ci <C-R>=PrintSnippet('ci')<CR>
+iabbr <unique> ce <C-R>=PrintSnippet('ce')<CR>
 
-# <unique> Functions.
-iabbr <unique> sig <C-R>=Eatchar('sig', 'sig', v:false)<CR>
-iabbr <unique> meth <C-R>=Eatchar('meth', 'meth', v:false)<CR>
-iabbr <unique> abm_ <C-R>=Eatchar('abm', 'abstractmeth', v:false)<CR>
-iabbr <unique> lam <C-R>=Eatchar('lam', 'lambda', v:true)<CR>
-iabbr <unique> fn <C-R>=Eatchar('fn', 'func', v:false)<CR>
-iabbr <unique> main <C-R>=Eatchar('main', 'main', v:false)<CR>
+" <unique> Functions.
+iabbr <unique> fs <C-R>=PrintSnippet('fs')<CR>
+iabbr <unique> fme <C-R>=PrintSnippet('fme')<CR>
+"iabbr <unique> abm_ <C-R>=PrintSnippet('abm')<CR>
+iabbr <unique> lam <C-R>=PrintSnippet('lam')<CR>
+iabbr <unique> fx <C-R>=PrintSnippet('fx')<CR>
+iabbr <unique> fma <C-R>=PrintSnippet('fma')<CR>
+"iabbr <unique> sz <C-R>=PrintSnippet('sz')<CR>
+" benchmark
+iabbr <unique> bm <C-R>=PrintSnippet('bm')<CR>
 
-# <unique> Classes.
-iabbr <unique> struct <C-R>=Eatchar('struct', 'struct', v:false)<CR>
-iabbr <unique> class <C-R>=Eatchar('class', 'class', v:false)<CR>
-iabbr <unique> subc_ <C-R>=Eatchar('subc', 'subclass', v:false)<CR>
-iabbr <unique> abc_ <C-R>=Eatchar('abc', 'abstractclass', v:false)<CR>
-iabbr <unique> inter_ <C-R>=Eatchar('inter', 'interface', v:false)<CR>
+" <unique> Classes.
+iabbr <unique> st <C-R>=PrintSnippet('st')<CR>
+iabbr <unique> cl <C-R>=PrintSnippet('cl')<CR>
+iabbr <unique> scl <C-R>=PrintSnippet('scl')<CR>
+"iabbr <unique> abc <C-R>=PrintSnippet('abc')<CR>
+"iabbr <unique> inter_ <C-R>=PrintSnippet('inter')<CR>
 
-# <unique> Error handling.
-iabbr <unique> try <C-R>=Eatchar('try', 'try', v:false)<CR>
-iabbr <unique> catch <C-R>=Eatchar('catch', 'catch', v:false)<CR>
-iabbr <unique> finally <C-R>=Eatchar('finally', 'finally', v:false)<CR>
-iabbr <unique> with <C-R>=Eatchar('with', 'with', v:false)<CR>
+" <unique> Error handling.
+iabbr <unique> tr <C-R>=PrintSnippet('tr')<CR>
+iabbr <unique> ca <C-R>=PrintSnippet('ca')<CR>
+iabbr <unique> fi <C-R>=PrintSnippet('fi')<CR>
+iabbr <unique> wi <C-R>=PrintSnippet('wi')<CR>
 
-# <unique> Logical.
-iabbr <unique> l <C-R>=Eatchar('l', 'lessthan', v:true)<CR>
-iabbr <unique> g <C-R>=Eatchar('g', 'greaterthan', v:true)<CR>
-iabbr <unique> lte <C-R>=Eatchar('lte', 'lessthaneq', v:true)<CR>
-iabbr <unique> gte <C-R>=Eatchar('gte', 'greaterthaneq', v:true)<CR>
-iabbr <unique> le <C-R>=Eatchar('le', 'logicaleq', v:true)<CR>
-iabbr <unique> ne <C-R>=Eatchar('ne', 'noteq', v:true)<CR>
-iabbr <unique> n <C-R>=Eatchar('n', 'not', v:true)<CR>
-iabbr <unique> a <C-R>=Eatchar('a', 'and', v:true)<CR>
-iabbr <unique> o <C-R>=Eatchar('o', 'or', v:true)<CR>
-iabbr <unique> x <C-R>=Eatchar('x', 'xor', v:true)<CR>
-iabbr <unique> grp <C-R>=Eatchar('grp', 'group', v:true)<CR>
-iabbr <unique> in_ <C-R>=Eatchar('in', 'in', v:true)<CR>
+" <unique> Logical.
+iabbr <unique> lt <C-R>=PrintSnippet('lt')<CR>
+iabbr <unique> gt <C-R>=PrintSnippet('gt')<CR>
+iabbr <unique> leq <C-R>=PrintSnippet('leq')<CR>
+iabbr <unique> geq <C-R>=PrintSnippet('geq')<CR>
+iabbr <unique> le <C-R>=PrintSnippet('le')<CR>
+iabbr <unique> ne <C-R>=PrintSnippet('ne')<CR>
+iabbr <unique> nn <C-R>=PrintSnippet('nn')<CR>
+iabbr <unique> aa <C-R>=PrintSnippet('aa')<CR>
+iabbr <unique> oo <C-R>=PrintSnippet('oo')<CR>
+iabbr <unique> xx <C-R>=PrintSnippet('xx')<CR>
+iabbr <unique> pa <C-R>=PrintSnippet('pa')<CR>
+iabbr <unique> in_ <C-R>=PrintSnippet('in')<CR>
+iabbr <unique> isa <BS><C-R>=PrintSnippet('isa')<CR>
+iabbr <unique> ise <C-R>=PrintSnippet('ise')<CR>
 
-# <unique> Bitwise.
-iabbr <unique> ls <C-R>=Eatchar('ls', 'leftshift', v:true)<CR>
-iabbr <unique> rs <C-R>=Eatchar('rs', 'rightshift', v:true)<CR>
-iabbr <unique> bn <C-R>=Eatchar('bn', 'bitwisenot', v:true)<CR>
-iabbr <unique> ba <C-R>=Eatchar('ba', 'bitwiseand', v:true)<CR>
-iabbr <unique> bo <C-R>=Eatchar('bo', 'bitwiseor', v:true)<CR>
-iabbr <unique> bx <C-R>=Eatchar('bx', 'bitwisexor', v:true)<CR>
+" <unique> Bitwise.
+iabbr <unique> llt <C-R>=PrintSnippet('llt')<CR>
+iabbr <unique> ggt <C-R>=PrintSnippet('ggt')<CR>
+iabbr <unique> nnn <C-R>=PrintSnippet('nnn')<CR>
+iabbr <unique> aaa <C-R>=PrintSnippet('aaa')<CR>
+iabbr <unique> ooo <C-R>=PrintSnippet('ooo')<CR>
+iabbr <unique> xxx <C-R>=PrintSnippet('xxx')<CR>
 
-# <unique> Mathematical.
-iabbr <unique> e <C-R>=Eatchar('e', 'equal', v:true)<CR>
-iabbr <unique> asg <C-R>=Eatchar('asg', 'assignment', v:true)<CR>
-iabbr <unique> p <C-R>=Eatchar('p', 'plus', v:true)<CR>
-iabbr <unique> m <C-R>=Eatchar('m', 'minus', v:true)<CR>
-iabbr <unique> t <C-R>=Eatchar('t', 'times', v:true)<CR>
-iabbr <unique> d <C-R>=Eatchar('d', 'divide', v:true)<CR>
-iabbr <unique> pow <C-R>=Eatchar('pow', 'power', v:true)<CR>
-iabbr <unique> mod <C-R>=Eatchar('mod', 'mod', v:true)<CR>
+" <unique> Mathematical.
+iabbr <unique> ee <C-R>=PrintSnippet('ee')<CR>
+"iabbr <unique> asg <C-R>=PrintSnippet('asg')<CR>
+iabbr <unique> pp <C-R>=PrintSnippet('pp')<CR>
+iabbr <unique> pe <C-R>=PrintSnippet('pe')<CR>
+iabbr <unique> mi <C-R>=PrintSnippet('mi')<CR>
+iabbr <unique> mie <C-R>=PrintSnippet('mie')<CR>
+iabbr <unique> tt <C-R>=PrintSnippet('tt')<CR>
+iabbr <unique> dd <C-R>=PrintSnippet('dd')<CR>
+iabbr <unique> ttt <C-R>=PrintSnippet('ttt')<CR>
+iabbr <unique> mod <C-R>=PrintSnippet('mod')<CR>
 
-# <unique> Imports.
-iabbr <unique> imp <C-R>=Eatchar('imp', 'import', v:false)<CR>
-iabbr <unique> impc <C-R>=Eatchar('impc', 'cimport', v:false)<CR>
+" <unique> Imports.
+iabbr <unique> im <C-R>=PrintSnippet('im')<CR>
+iabbr <unique> imc <C-R>=PrintSnippet('imc')<CR>
 
-# <unique> Comments.
-iabbr <unique> com_ <C-R>=Eatchar('com', 'comment', v:false)<CR>
-iabbr <unique> mlcom_ <C-R>=Eatchar('mlcom', 'multilinecomment', v:false)<CR>
+" <unique> Comments.
+"iabbr <unique> com_ <C-R>=PrintSnippet('com')<CR>
+"iabbr <unique> mlcom_ <C-R>=PrintSnippet('mlcom')<CR>
 
-# <unique> Data reading.
-iabbr <unique> vo <C-R>=Eatchar('val', 'valueof', v:true)<CR>
-iabbr <unique> ao <C-R>=Eatchar('adr', 'addressof', v:true)<CR>
-iabbr <unique> up <C-R>=Eatchar('up', 'uniquepointer', v:true)<CR>
-iabbr <unique> upe <C-R>=Eatchar('upe', 'uniquepointereq', v:false)<CR>
+" <unique> Data reading.
+iabbr <unique> vo <C-R>=PrintSnippet('vo')<CR>
+"iabbr <unique> ao <C-R>=PrintSnippet('adr')<CR>
+"iabbr <unique> up <C-R>=PrintSnippet('up')<CR>
+"iabbr <unique> upe <C-R>=PrintSnippet('upe')<CR>
+
+
+
+
+
+let g:root_file = expand('<sfile>')
+let g:root_dir = fnamemodify(g:root_file, ':h')
+
+let g:file_ext_to_comment = {
+    \ 'vim': '"',
+    \ 'py': '#',
+    \ 'java': '//',
+    \ 'c': '//',
+    \ 'cpp': '//',
+    \ 'cxx': '//',
+    \ 'hpp': '//',
+    \ 'h': '//',
+\ }
+
+let g:default_abbrev_to_snippet = {
+    \ 'sl': ['""'],
+    \ 'ch': ["''"],
+    \ 'pa': ['()'],
+    \ 'ne': ['!='],
+    \ 'leq': ['<='],
+    \ 'geq': ['>='],
+    \ 'gt': ['>'],
+    \ 'lt': ['>'],
+    \ 'nn': ['!'],
+    \ 'oo': ['||'],
+    \ 'xx': ['^'],
+    \ 'aa': ['&&'],
+    \ 'le': ['=='],
+    \ 'ggt': ['>>'],
+    \ 'llt': ['<<'],
+    \ 'ooo': ['|'],
+    \ 'aaa': ['&'],
+    \ 'xxx': ['^'],
+    \ 'nnn': ['~'],
+    \ 'ee': ['='],
+    \ 'ise': [':='],
+    \ 'isa': [':'],
+    \ 'ter': [ "a ? b : c;", ],
+    \ 'mod': ['%'],
+    \ 'pp': ['+'],
+    \ 'pe': ['+='],
+    \ 'mi': ['-'],
+    \ 'mie': ['-=']
+\}
+let g:abbrev_to_snippet = {}
+let g:file_ext_to_snippet_map = {}
+
+function LoadSnippets()
+    let l:file_ext = expand('%:e')
+    if has_key(g:file_ext_to_snippet_map, l:file_ext)
+        let g:abbrev_to_snippet = g:file_ext_to_snippet_map[l:file_ext]
+    else
+        let g:abbrev_to_snippet = {}
+    endif
+endfunction
+
+function SetSnippetForFiletype()
+    call LoadSnippets()
+    let l:file_ext = expand('%:e')
+    let snippet_filename = g:root_dir . '/snippets/' . l:file_ext . '.vim'
+    if empty(g:abbrev_to_snippet) && filereadable(snippet_filename)
+        exec "source" . l:snippet_filename
+        call LoadSnippets()
+        if !empty(g:abbrev_to_snippet)
+            for [key, value] in items(g:abbrev_to_snippet)
+                " add global abbreviations.
+            endfor
+        endif
+    endif
+endfunction
+
+function PrintSnippet(abbreviation)
+    let l:snippet = []
+
+    if has_key(g:abbrev_to_snippet, a:abbreviation)
+        let l:snippet = g:abbrev_to_snippet[a:abbreviation]
+    elseif has_key(g:default_abbrev_to_snippet, a:abbreviation)
+        let l:snippet = g:default_abbrev_to_snippet[a:abbreviation]
+    endif
+
+    if empty(l:snippet)
+        return a:abbreviation
+    elseif len(l:snippet) == 1
+       return l:snippet[0]
+    endif
+
+    " Ignore the character that triggered the abbreviation.
+    let _ = getchar(0)
+    call append('.', l:snippet)
+    exec 'normal dd' .. len(l:snippet) .. '=$'
+    return ''
+endfunction
+
+function Comment(uncomment)
+    let l:file_ext = expand('%:e')
+    if has_key(g:file_ext_to_comment, l:file_ext)
+    let l:comment = g:file_ext_to_comment[l:file_ext]
+    let l:sep = l:comment =~ '/' ? '#' : '/'
+        if a:uncomment
+            exec printf('s%s\v^(\s*)%s%s\1%s', l:sep, l:comment, l:sep, l:sep)
+        else
+            exec printf('s%s\v^(\s*)%s\1%s%s', l:sep, l:sep, l:comment, l:sep)
+        endif
+    endif
+endfunction
+
+autocmd! BufEnter,BufWinEnter,BufRead,BufNewFile * call SetSnippetForFiletype()
