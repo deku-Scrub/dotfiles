@@ -10,6 +10,9 @@
 # Right : RIGHT, ^[[C
 # Left  : LEFT, ^[[D
 
+#keymap yy EXTERN_LINK 'echo -n %s; pkill --signal 15 w3m; echo'
+#keymap yy EXTERN_LINK 'less "$(echo %s | sed -r "s#file://##")"'
+keymap yy EXTERN_LINK 'echo %s'
 keymap	C-@	MARK
 keymap	C-a	LINE_BEGIN
 keymap	C-b	MOVE_LEFT
