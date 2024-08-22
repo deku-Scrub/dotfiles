@@ -6,10 +6,16 @@
 *locale: true
 *wideFont: -misc-fixed-medium-r-normal-ja-*-*-*-*-*-*-*-*
 *allowBoldFonts: true
-*.font:xft:fira code:regular:size=14
-! change to light bg dark fg
-*background: #222222
-*foreground: #cccccc
+*.font:xft:fira code:regular:size=18
+
+! https://wiki.archlinux.org/title/Color_output_in_console#Terminal_emulators
+*background: #f0e0e0
+*foreground: black
 
 URxvt.perl-ext-common: font-size,keyboard-select
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+! Do not jump to the bottom on new output.
+URxvt.scrollTtyOutput:   False
+URxvt.scrollWithBuffer:  True
+URxvt.scrollTtyKeypress: True
