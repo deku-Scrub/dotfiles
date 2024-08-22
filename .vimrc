@@ -74,6 +74,7 @@ set history=50
 set showmatch
 set ignorecase smartcase
 set mouse=a
+set belloff=all
 " set iskeyword+=-
 
 " Keys
