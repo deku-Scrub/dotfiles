@@ -1,3 +1,4 @@
+*visualBell: false
 *toolbar: false
 *scrollBar: false
 *borderWidth: 0
@@ -9,7 +10,8 @@
 *.font:xft:fira code:regular:size=18
 
 ! https://wiki.archlinux.org/title/Color_output_in_console#Terminal_emulators
-*background: #f0e0e0
+!*background: #f0e0e0
+*background: #fefefe
 *foreground: black
 
 URxvt.perl-ext-common: font-size,keyboard-select
