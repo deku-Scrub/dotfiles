@@ -64,8 +64,8 @@ let g:file_ext_to_snippet_map['sh'] = {
     \ ';;',
     \ ],
     \ 'fx': [
-        \ 'f() {',
-    \ '}',
+        \ 'f() (',
+    \ ')',
     \ ],
     \ 'hd': [
         \ 'cmd <<HEREDOC',
@@ -79,7 +79,7 @@ let g:file_ext_to_snippet_map['sh'] = {
     "\ 'longarg': [ '--', ],
     "\ 'shortarg': [ '-', ],
     \ 'fma': [
-        \ "#!/bin/bash\n\bset -euo pipefail\nIFS=$'\\n\\t'\n\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" &> /dev/null && pwd)\n\n\nmain() {\n}\n\n\nmain",
+        \ "#!/bin/bash\n\bset -euo pipefail\nIFS=$'\\n\\t'\n\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" &> /dev/null && pwd)\n\n\nmain() (\n)\n\n\nmain",
     \ ],
     "\ 'braceexpand': [ '{}', ],
     "\ 'append': [ '>>', ],
