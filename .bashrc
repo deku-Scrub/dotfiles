@@ -92,6 +92,11 @@ export EDITOR=vim
 set -o vi
 
 export PS1="\u@\H:\w\\$ \[$(tput sgr0)\]"
+if [ -n "${TMUX}" ]; then
+    export PS1="\u@\H#anon:\w\\$ \[$(tput sgr0)\]"
+    # wmctrl -r ':ACTIVE:' -T anon
+    # WINDOW_NAME=anon; printf '\033k'"${WINDOW_NAME}"'\033\\'; export PS1="\u@\H#"${WINDOW_NAME}":\w\\$ \[$(tput sgr0)\]"
+fi
 
 
 readme() (
