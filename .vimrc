@@ -96,20 +96,25 @@ set belloff=all
 " PageUp: <PageUp>
 " |: <Bar> or \|
 " Mappings okay to override: C-HJKL,<BS>,<Space>,HJKL
-"set nottimeout
-"set timeoutlen=1000000000
+set nottimeout
+set timeoutlen=1000000000
 set ttimeoutlen=1000000000
+set ttimeout
+set timeout
 
 map [[ ?{<CR>o99[{
 "map ][ /}<CR>u99]}
 map ]] k0[[>/{<CR>
 "map [] i$][>?}<CR>
 
-noremap <Space>ls :ls<CR>:b<Space>
-noremap <Space>spl :split<CR>
-noremap <Space>pp :b#<CR>
-noremap <Space>co :call Comment(v:false)<CR>
-noremap <Space>nco :call Uncomment(v:true)<CR>
+noremap <Space>m :set mouse=a<CR>
+noremap <Space>um :set mouse=<CR>
+noremap <Space>l :ls<CR>:b<Space>
+noremap <Space>sj :split<CR>
+noremap <Space>sk :vsplit<CR>
+noremap <Space>p :b#<CR>
+noremap <Space>c :call Comment(v:false)<CR>
+noremap <Space>uc :call Comment(v:true)<CR>
 noremap <Space>; :
 noremap <Space><Space> :write<CR>:mksession!<CR>
 
@@ -154,6 +159,8 @@ noremap <Space><Space> :write<CR>:mksession!<CR>
 "    xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
 
 
+noremap c <C-w>w
+noremap x <C-r>
 noremap e b
 noremap m e
 noremap E B
@@ -182,6 +189,21 @@ noremap sal cap
 noremap sa; ca'
 noremap sap ca"
 
+nmap <Space>j o<Esc>
+nmap <Space>z <C-z>
+nmap <Space>o <C-o><SID>
+nmap <Space>i <C-i><SID>
+nmap <Space>e <C-e><SID>
+nmap <Space>y <C-y><SID>
+nmap <Space>f <C-f><SID>
+nmap <Space>b <C-b><SID>
+nn <script> <SID>o <C-o><SID>
+nn <script> <SID>i <C-i><SID>
+nn <script> <SID>e <C-e><SID>
+nn <script> <SID>y <C-y><SID>
+nn <script> <SID>f <C-f><SID>
+nn <script> <SID>b <C-b><SID>
+nmap <SID> <Nop>
 
 "map <Space>q !
 "map <Space>w @

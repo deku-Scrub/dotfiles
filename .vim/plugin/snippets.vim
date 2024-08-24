@@ -14,11 +14,9 @@ noremap <unique> <Space>ssd g*
 noremap <unique> <Space>ssu g#
 noremap <unique> <Space>ku gU
 noremap <unique> <Space>kd gu
-noremap <unique> <Space>kk g~
-noremap <unique> <Space>iu <
-noremap <unique> <Space>io >
-noremap <unique> <Space>ii =
-noremap <unique> <Space>man K
+noremap <unique> <Space>kj <
+noremap <unique> <Space>kl >
+noremap <unique> <Space>kk =
 noremap <unique> <Space>ww <C-g>
 noremap <unique> <Space>ad a[0]<ESC>h
 noremap <unique> <Space>av a<A><ESC>h
@@ -26,12 +24,10 @@ noremap <unique> <Space>as a{}<ESC>
 noremap <unique> <Space>af a()<ESC>
 noremap <unique> <Space>a; a''<ESC>
 noremap <unique> <Space>aa a""<ESC>
-noremap <unique> <Space>o o<ESC>
-noremap <unique> <Space>j :join<CR>
-noremap <unique> K <C-y>
-noremap <unique> J <C-e>
-noremap <unique> H ^
-noremap <unique> L $
+"noremap <unique> K <C-y>
+"noremap <unique> J <C-e>
+"noremap <unique> H ^
+"noremap <unique> L $
 
 " <unique> Namespaces.
 iabbr <unique> sd <C-R>=PrintSnippet('sd')<CR>
@@ -160,7 +156,9 @@ let g:root_dir = fnamemodify(g:root_file, ':h')
 let g:file_ext_to_comment = {
     \ 'vim': '"',
     \ 'py': '#',
+    \ 'sh': '#',
     \ 'java': '//',
+    \ 'js': '//',
     \ 'c': '//',
     \ 'cpp': '//',
     \ 'cxx': '//',
