@@ -6,32 +6,37 @@ set bell-style none
 $if mode=vi
     set keymap vi-insert
 #"ll.": "para\C-vl\C-vlel -j1 ''"
-    "ll.": "parallel -j1 ''"
-    "py.": "python3 "
-    "pym.": "python3 -m "
-    "pyp.": "python3 -m pip "
-    "pyi.": "pyp. install -t pylib "
-    "pyw.": "pyp. wheel "
-    "pyl.": "pyp. list "
-    "paci.": "sudo pacman -Syu "
-    "pacs.": "sudo pacman -Ss ''"
-    "pacq.": "sudo pacman -Qi ''"
-    "pacr.": "sudo pacman -R ''"
-    "g.": "grep -i -E -r '' ."
-    "fg.": "grep -i -F -r '' ."
-    "f.": "find . -iregex '.*.*'"
-    "s.": "sed -r -e 's///g'"
+    "sd.ll": "parallel -j1 ''"
+    "sd.lln": "parallel -j1 -N10000 ''"
+    "sd.p": "python3 "
+    "sd.pm": "python3 -m "
+    "sd.pi": "python3 -m pip install -t pylib "
+    "sd.pl": "python3 -m pip list "
+    "sd.llre": "parallel -j4 -N10000 'grep -iE \"\"'"
+    "sd..": "--help "
+    "sd.re": "grep -iIE ''"
+    "sd.rer": "grep -iIE -r '' ."
+    "sd.f": "find . -iregex '.*.*'"
+    "sd.ff": "find . -type f -iregex '.*.*'"
+    "sd.sed": "sed -r -e 's///g'"
+    "sd.du": "du -h -d0 ."
+    "sd.df": "df -h"
+    "sd.col": "column -c0 -t -s','"
+    "sd.cu": "cut -f"
+    "sd.cus": "cut -d' ' -f"
+    "sd.ti": "/usr/bin/time -f '%es %Mkb %P'"
+    "sd.uq": "sort | uniq -c | sed -r 's/^\s+//' | sort -n -k1,1"
+    "os.i": "sudo pacman -Syu "
+    "os.s": "sudo pacman -Ss ''"
+    "os.q": "sudo pacman -Qi ''"
+    "os.u": "sudo pacman -R ''"
+    "lessm": "less -i --mouse"
+    "rmr": "rm -r "
+    "cpr": "cp -r "
     "gpp": "g++ "
-    "du.": "du -h -d0 ."
-    "df.": "df -h"
-    "less.": "less -i --mouse"
-    "rm.": "rm -r ."
-    "cp.": "cp -r . ."
-    "h.": "~/"
-    " p ": " | "
-    "and ": " && "
-    "or ": " || "
-    "grp ": "[  ]"
+    " aa ": " && "
+    " oo ": " || "
+    " pa ": "[  ]"
     #";": "-"
     #";.": "\;"
     #set keyseq-timeout 0
@@ -46,7 +51,6 @@ $if mode=vi
 " r": "$"
 " t": "%"
 " y": "^"
-" u": "~"
 #" i":  *
 #" o":  {
 #" p":  }
@@ -77,8 +81,8 @@ $if mode=vi
 #
 #gt g~
 #gi [I
-"gy": upcase-word
-"gu": downcase-word
+" ku": upcase-word
+" kd": downcase-word
 "R": overwrite-mode
 #
 "  ": accept-line
