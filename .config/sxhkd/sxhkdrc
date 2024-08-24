@@ -1,23 +1,41 @@
-#
-# wm independent hotkeys
-#
+# X XXXrX XXXXX X
+# X XXdXX XXXXX R
+# X zXXXX Xm,.X X
+#     XXX XXX
 
-# program launcher
-super + semicolon
-        bash ~/.config/bspwm/scripts/switch_window.sh
-        #echo ""$(date)" | "$(cat /sys/class/power_supply/BAT0/uevent | grep 'CAPACITY=')" | "$(free -m | tail -n +2 | head -n 1 | grep -o -E '\w+$')" MB" | dmenu -fn 'fira code'
+# rotate
+alt + ctrl + r
+    bspc node '@/' -R 90
 
-# hjkl/HJKL row
-# focus/swap the node in the given direction
-super + {h,j,k,l}
-	bspc node -f {west,south,north,east}
-super + shift + {h,j,k,l}
-	bspc node -s {west,south,north,east}
+alt + ctrl + {comma,period}
+    bash ~/.config/bspwm/scripts/switch_desktop.sh {-1,1}
 
-# yuiop row
+alt + {comma,period}
+    bash ~/.config/bspwm/scripts/cycle_window.sh {-1,1}
+
+alt + Return
+    bash ~/.config/bspwm/scripts/switch_window.sh
+
+alt + m
+    wmctrl -r ':ACTIVE:' -b toggle,fullscreen
+
+alt + ctrl + d
+    urxvt
+
+alt + ctrl + z
+    wmctrl -c ':ACTIVE:'
+
+# X XXerX XXXXp X
+# X aXXXX HJKLX X
+# X XXXXX XXXX/ X
+# X   XXX XXX   X
+alt + shift + {h,j,k,l}
+    bspc node -s {west,south,north,east}
+
 # expand a window by moving one of its side outward
-super + {y,u,i,o}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+alt + ctrl + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
 # focus the last node/desktop
 super + p
 	bspc desktop -f last
@@ -32,34 +50,11 @@ super + a
 	bspc node -t tiled
 super + shift + a
 	bspc node -t floating
-# new window
-super + d
-	bspc node -p south; urxvt -cd /tmp
-super + shift + d
-	bspc node -p east; urxvt -cd /tmp
-# alternate between the tiled and monocle layout
-super + f
-	bspc desktop -l next
-# close and kill
-super + {_,shift + }g
-	bspc node -{c,k}
-
-# focus the next/previous node in the current desktop
-super + {n,m}
-    bspc node -f {next,prev}.local.window
-super + shift + {n,m}
-	bspc desktop -f {next,prev}.local
-
-#super + space
-	#bspc node -p south; urxvt -cd /tmp -e echo lol; bspc node -t floating; bspc node -{c,k}
 
 # qwert row
 # focus the last node/desktop
 super + e
 	bspc node -f last
-# rotate
-super + r
-	bspc node '@/' -R 90
 
 ## quit bspwm normally
 #super + alt + Escape
