@@ -92,3 +92,9 @@ export EDITOR=vim
 set -o vi
 
 export PS1="\u@\H:\w\\$ \[$(tput sgr0)\]"
+
+
+readme() (
+    pandoc -f markdown -t html "${1}" | w3m -T text/html
+)
+
