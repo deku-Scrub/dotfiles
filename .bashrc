@@ -78,11 +78,11 @@ alias v='vim'
 alias m='man'
 alias sxiv='sxiv -s f'
 alias ls='ls -p --color=always'
-alias s='ls -p --color=always'
+alias l='ls -p --color=always'
 alias f='fg'
 alias g='git'
 alias d='cd'
-alias l='less'
+alias s='less'
 
 # https://gist.github.com/JBlond/2fea43a3049b38287e5e9cefc87b2124
 export LS_COLORS="$LS_COLORS":'di=1;30'
