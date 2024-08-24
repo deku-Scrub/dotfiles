@@ -1,5 +1,6 @@
 # deps
 sudo pacman -S git python-pip libffi qmk
+python3 -m pip install --user qmk
 
 # clone into qmk_firmware
 qmk setup --home /home/deku/code/qmk_firmware
