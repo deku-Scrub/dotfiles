@@ -71,6 +71,9 @@ hi FoldColumn ctermbg=8 ctermfg=15 term=None
 hi Error ctermfg=16 ctermbg=15 cterm=underline,italic
 hi Todo ctermbg=7 ctermfg=16 cterm=underline,bold
 
+hi PmenuSel ctermfg=15 ctermbg=16
+hi Pmenu ctermfg=16 ctermbg=15
+
 " https://stackoverflow.com/questions/29192124/how-to-color-function-call-in-vim-syntax-highlighting
 syn match dFunction "\zs\(\k\w*\)*\s*\ze("
 hi link dFunction Function
