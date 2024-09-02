@@ -1,5 +1,5 @@
 let g:file_ext_to_snippet_map['py'] = {
-    \ 'fma': [
+    \ 'main_function': [
         \ "#!/usr/bin/env python3",
         \ "",
         \ "",
@@ -10,109 +10,109 @@ let g:file_ext_to_snippet_map['py'] = {
         \ "if __name__ == '__main__':",
         \ "main()",
     \ ],
-    \ 'fl': [
+    \ 'for_loop': [
         \ "for aj in (a):",
         \ "pass",
     \ ],
-    \ 'ae': [
+    \ 'array_assignment': [
         \ "a = []",
     \ ],
-    \ 'ar': [
+    \ 'array_type': [
         \ "[]",
     \ ],
-    \ 've': [
+    \ 'vector_assignment': [
         \ "a = []",
     \ ],
-    \ 'vv': [
+    \ 'vector_type': [
         \ "[]",
     \ ],
-    \ 'seq': [
+    \ 'set_assignment': [
         \ "a = set()",
     \ ],
-    \ 'se': [
+    \ 'set_type': [
         \ "set()",
     \ ],
-    \ 'me': [
+    \ 'map_assignment': [
         \ "a = dict()",
     \ ],
-    \ 'ma': [
+    \ 'map_type': [
         \ "dict()",
     \ ],
-    \ 'ss': [
+    \ 'string_type': [
         \ "str()",
     \ ],
-    \ 'lam': [
+    \ 'lambda_function': [
         \ "lambda a: a",
     \ ],
-    \ 'wi': [
+    \ 'error_with': [
         \ "with a as b:",
         \ "pass",
     \ ],
-    \ 'ci': [
+    \ 'read_stdin': [
         \ "a = input()",
     \ ],
-    \ 'ce': [
+    \ 'print_stderr': [
         \ "print('{}'.format(a), file=sys.stderr)",
     \ ],
-    \ 'co': [
+    \ 'print_stdout': [
         \ "print('{}'.format(a))",
     \ ],
-    \ 'cl': [
+    \ 'class': [
         \ "class A:",
         \ "",
         \ "def __init__(self):",
         \ "pass",
     \ ],
-    \ 'fme': [
+    \ 'method': [
         \ "def f(self):",
         \ "pass",
     \ ],
-    \ 'fx': [
+    \ 'function': [
         \ "def f():",
         \ "pass",
     \ ],
-    \ 'tr': [
+    \ 'error_try': [
         \ "try:",
         \ "pass",
         \ "except Exception as err:",
         \ "pass",
     \ ],
-    \ 'ife': [
+    \ 'else': [
         \ "else:",
         \ "pass",
     \ ],
-    \ 'iff': [
+    \ 'if': [
         \ "if (a):",
         \ "pass",
     \ ],
-    \ 'elif': [
+    \ 'elseif': [
         \ "elif (a):",
         \ "pass",
     \ ],
-    \ 'wl': [
+    \ 'while_loop': [
         \ "while (a):",
         \ "pass",
     \ ],
 \ 'ch': [
 \ "''",
 \ ],
-\ 'sl': [
+\ 'literal_string': [
 \ "''",
 \ ],
-\ 'mls': [
+\ 'multiline_string': [
 \ "a = (",
 \ "'',",
 \ ")",
 \ ],
-\ 'ssf': [
+\ 'format_string': [
 \ "'{}'.format(a)",
 \ ],
-    \ 'nn': [ "not", ],
-    \ 'aa': [ "and", ],
-    \ 'oo': [ "or", ],
-    \ 'xx': [ "^", ],
-    \ 'ter': [ "b if a else c", ],
-    \ 'ise': [ ":=", ],
-    \ 'ttt': [ "**", ],
-    \ 'im': [ "import", ],
+    \ 'logical_not': [ "not", ],
+    \ 'logical_and': [ "and", ],
+    \ 'logical_or': [ "or", ],
+    \ 'logical_xor': [ "^", ],
+    \ 'ternary': [ "b if a else c", ],
+    \ 'assignment2': [ ":=", ],
+    \ 'exponentiation': [ "**", ],
+    \ 'import': [ "import", ],
 \}

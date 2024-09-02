@@ -2,153 +2,152 @@ if exists("g:file_ext_to_snippet_map")
     finish
 endif
 
-
-
-
-
-
-noremap <unique> <Space>sed :s/\v
-noremap <unique> <Space>sd *
-noremap <unique> <Space>su #
-noremap <unique> <Space>ssd g*
-noremap <unique> <Space>ssu g#
-noremap <unique> <Space>ku gU
-noremap <unique> <Space>kd gu
-noremap <unique> <Space>kj <
-noremap <unique> <Space>kl >
-noremap <unique> <Space>kk =
-noremap <unique> <Space>ww <C-g>
-noremap <unique> <Space>ad a[0]<ESC>h
-noremap <unique> <Space>av a<A><ESC>h
-noremap <unique> <Space>as a{}<ESC>
-noremap <unique> <Space>af a()<ESC>
-noremap <unique> <Space>a; a''<ESC>
-noremap <unique> <Space>aa a""<ESC>
-"noremap <unique> K <C-y>
-"noremap <unique> J <C-e>
-"noremap <unique> H ^
-"noremap <unique> L $
-
-" <unique> Namespaces.
-iabbr <unique> sd <C-R>=PrintSnippet('sd')<CR>
+" Namespaces.
+inoremap <unique> s/ <C-R>=PrintSnippet('standardlib')<CR>
 
 " <unique> Types.
-iabbr <unique> ar <C-R>=PrintSnippet('ar')<CR>
-iabbr <unique> are <C-R>=PrintSnippet('ae')<CR>
-iabbr <unique> vv <C-R>=PrintSnippet('vv')<CR>
-iabbr <unique> ve <C-R>=PrintSnippet('ve')<CR>
-iabbr <unique> se <C-R>=PrintSnippet('se')<CR>
-iabbr <unique> seq <C-R>=PrintSnippet('seq')<CR>
-iabbr <unique> ma <C-R>=PrintSnippet('ma')<CR>
-iabbr <unique> mae <C-R>=PrintSnippet('mae')<CR>
-iabbr <unique> qe <C-R>=PrintSnippet('qe')<CR>
-iabbr <unique> lste_ <C-R>=PrintSnippet('lste')<CR>
-iabbr <unique> hpe_ <C-R>=PrintSnippet('hpe')<CR>
-iabbr <unique> sl <C-R>=PrintSnippet('sl')<CR>
-iabbr <unique> ss <C-R>=PrintSnippet('ss')<CR>
-iabbr <unique> ch <C-R>=PrintSnippet('ch')<CR>
-iabbr <unique> mls <C-R>=PrintSnippet('mls')<CR>
-iabbr <unique> ssf <C-R>=PrintSnippet('ssf')<CR>
-iabbr <unique> mv <C-R>=PrintSnippet('mv')<CR>
-iabbr <unique> tu <C-R>=PrintSnippet('tu')<CR>
-iabbr <unique> tue <C-R>=PrintSnippet('tue')<CR>
+" Given type `T`:
+"   iaT: is assignment T (`T a = b`, `a: T = b`, etc)
+"   iT: is T (`str`, `vector`, etc)
+"   idT: is defintion T (`T a`, `a: T`, etc)
+" Types:
+"   a: array
+"   t: tuple
+"   m: map
+"   s: string
+"   c: char
+"   se: set
+"   v: vector
+"   l: list
+"   q: queue
+"   f: function
+"   T: template
+inoremap <unique> iaa/ <C-R>=PrintSnippet('array_assignment')<CR>
+inoremap <unique> ia/ <C-R>=PrintSnippet('array_type')<CR>
+inoremap <unique> ida/ <C-R>=PrintSnippet('array_declaration')<CR>
+inoremap <unique> iat/ <C-R>=PrintSnippet('tuple_assignment')<CR>
+inoremap <unique> it/ <C-R>=PrintSnippet('tuple_type')<CR>
+inoremap <unique> idt/ <C-R>=PrintSnippet('tuple_declaration')<CR>
+inoremap <unique> iam/ <C-R>=PrintSnippet('map_assignment')<CR>
+inoremap <unique> im/ <C-R>=PrintSnippet('map_type')<CR>
+inoremap <unique> idm/ <C-R>=PrintSnippet('map_declaration')<CR>
+inoremap <unique> ias/ <C-R>=PrintSnippet('string_assignment')<CR>
+inoremap <unique> is/ <C-R>=PrintSnippet('string_type')<CR>
+inoremap <unique> ids/ <C-R>=PrintSnippet('string_declaration')<CR>
+inoremap <unique> iac/ <C-R>=PrintSnippet('char_assignment')<CR>
+inoremap <unique> ic/ <C-R>=PrintSnippet('char_type')<CR>
+inoremap <unique> idc/ <C-R>=PrintSnippet('char_declaration')<CR>
+inoremap <unique> iase/ <C-R>=PrintSnippet('set_assignment')<CR>
+inoremap <unique> ise/ <C-R>=PrintSnippet('set_type')<CR>
+inoremap <unique> idse/ <C-R>=PrintSnippet('set_declaration')<CR>
+inoremap <unique> iav/ <C-R>=PrintSnippet('vector_assignment')<CR>
+inoremap <unique> iv/ <C-R>=PrintSnippet('vector_type')<CR>
+inoremap <unique> idv/ <C-R>=PrintSnippet('vector_declaration')<CR>
+inoremap <unique> ial/ <C-R>=PrintSnippet('list_assignment')<CR>
+inoremap <unique> il/ <C-R>=PrintSnippet('list_type')<CR>
+inoremap <unique> idl/ <C-R>=PrintSnippet('list_declaration')<CR>
+inoremap <unique> iaq/ <C-R>=PrintSnippet('queue_assignment')<CR>
+inoremap <unique> iq/ <C-R>=PrintSnippet('queue_type')<CR>
+inoremap <unique> idq/ <C-R>=PrintSnippet('queue_declaration')<CR>
+inoremap <unique> iaf/ <C-R>=PrintSnippet('function_assignment')<CR>
+inoremap <unique> if/ <C-R>=PrintSnippet('function_type')<CR>
+inoremap <unique> idf/ <C-R>=PrintSnippet('function_declaration')<CR>
+inoremap <unique> iaT/ <C-R>=PrintSnippet('template_assignment')<CR>
+inoremap <unique> iT/ <C-R>=PrintSnippet('template_type')<CR>
+inoremap <unique> idT/ <C-R>=PrintSnippet('template_declaration')<CR>
 
-" <unique> Conditionals.
-iabbr <unique> elif <C-R>=PrintSnippet('elif')<CR>
-iabbr <unique> iff <C-R>=PrintSnippet('iff')<CR>
-iabbr <unique> ife <C-R>=PrintSnippet('ife')<CR>
-iabbr <unique> sw <C-R>=PrintSnippet('sw')<CR>
-iabbr <unique> swc <C-R>=PrintSnippet('swc')<CR>
-iabbr <unique> ter <C-R>=PrintSnippet('ter')<CR>
+" Strings
+inoremap <unique> sl/ <C-R>=PrintSnippet('literal_string')<CR>
+inoremap <unique> sf/ <C-R>=PrintSnippet('format_string')<CR>
+inoremap <unique> sm/ <C-R>=PrintSnippet('multiline_string')<CR>
+inoremap <unique> sd/ <C-R>=PrintSnippet('docstring')<CR>
 
-" <unique> Loops.
-iabbr <unique> fl <C-R>=PrintSnippet('fl')<CR>
-iabbr <unique> fel <C-R>=PrintSnippet('fel')<CR>
-iabbr <unique> wl <C-R>=PrintSnippet('wl')<CR>
-iabbr <unique> dwl <C-R>=PrintSnippet('dwl')<CR>
+" Loops.
+inoremap <unique> Lf/ <C-R>=PrintSnippet('for_loop')<CR>
+inoremap <unique> Lw/ <C-R>=PrintSnippet('while_loop')<CR>
+inoremap <unique> Le/ <C-R>=PrintSnippet('foreach_loop')<CR>
+inoremap <unique> Ld/ <C-R>=PrintSnippet('dowhile_loop')<CR>
+inoremap <unique> Lm/ <C-R>=PrintSnippet('mapping_loop')<CR>
+inoremap <unique> Lr/ <C-R>=PrintSnippet('reduction_loop')<CR>
+inoremap <unique> Lwr/ <C-R>=PrintSnippet('whileread_loop')<CR>
 
-" <unique> Printing.
-iabbr <unique> co <C-R>=PrintSnippet('co')<CR>
-iabbr <unique> ci <C-R>=PrintSnippet('ci')<CR>
-iabbr <unique> ce <C-R>=PrintSnippet('ce')<CR>
+" Conditionals.
+inoremap <unique> cif/ <C-R>=PrintSnippet('if')<CR>
+inoremap <unique> cei/ <C-R>=PrintSnippet('elseif')<CR>
+inoremap <unique> cel/ <C-R>=PrintSnippet('else')<CR>
+inoremap <unique> csw/ <C-R>=PrintSnippet('switch')<CR>
+inoremap <unique> csc/ <C-R>=PrintSnippet('switchcase')<CR>
+inoremap <unique> c3/ <C-R>=PrintSnippet('ternary')<CR>
+inoremap <unique> cm/ <C-R>=PrintSnippet('match')<CR>
 
-" <unique> Functions.
-iabbr <unique> fs <C-R>=PrintSnippet('fs')<CR>
-iabbr <unique> fme <C-R>=PrintSnippet('fme')<CR>
-"iabbr <unique> abm_ <C-R>=PrintSnippet('abm')<CR>
-iabbr <unique> lam <C-R>=PrintSnippet('lam')<CR>
-iabbr <unique> fx <C-R>=PrintSnippet('fx')<CR>
-iabbr <unique> fma <C-R>=PrintSnippet('fma')<CR>
-"iabbr <unique> sz <C-R>=PrintSnippet('sz')<CR>
-" benchmark
-iabbr <unique> bm <C-R>=PrintSnippet('bm')<CR>
+" IO.
+inoremap <unique> Io/ <C-R>=PrintSnippet('print_stdout')<CR>
+inoremap <unique> Ii/ <C-R>=PrintSnippet('read_stdin')<CR>
+inoremap <unique> Ie/ <C-R>=PrintSnippet('print_stderr')<CR>
 
-" <unique> Classes.
-iabbr <unique> st <C-R>=PrintSnippet('st')<CR>
-iabbr <unique> cl <C-R>=PrintSnippet('cl')<CR>
-iabbr <unique> scl <C-R>=PrintSnippet('scl')<CR>
-"iabbr <unique> abc <C-R>=PrintSnippet('abc')<CR>
-"iabbr <unique> inter_ <C-R>=PrintSnippet('inter')<CR>
+" Functions.
+inoremap <unique> fs/ <C-R>=PrintSnippet('function_signature')<CR>
+inoremap <unique> fme/ <C-R>=PrintSnippet('method')<CR>
+inoremap <unique> fl/ <C-R>=PrintSnippet('lambda_function')<CR>
+inoremap <unique> ff/ <C-R>=PrintSnippet('function')<CR>
+inoremap <unique> fma/ <C-R>=PrintSnippet('main_function')<CR>
 
-" <unique> Error handling.
-iabbr <unique> tr <C-R>=PrintSnippet('tr')<CR>
-iabbr <unique> ca <C-R>=PrintSnippet('ca')<CR>
-iabbr <unique> fi <C-R>=PrintSnippet('fi')<CR>
-iabbr <unique> wi <C-R>=PrintSnippet('wi')<CR>
+" Benchmarks.
+inoremap <unique> bmt/ <C-R>=PrintSnippet('timer')<CR>
 
-" <unique> Logical.
-iabbr <unique> lt <C-R>=PrintSnippet('lt')<CR>
-iabbr <unique> gt <C-R>=PrintSnippet('gt')<CR>
-iabbr <unique> leq <C-R>=PrintSnippet('leq')<CR>
-iabbr <unique> geq <C-R>=PrintSnippet('geq')<CR>
-iabbr <unique> le <C-R>=PrintSnippet('le')<CR>
-iabbr <unique> ne <C-R>=PrintSnippet('ne')<CR>
-iabbr <unique> nn <C-R>=PrintSnippet('nn')<CR>
-iabbr <unique> aa <C-R>=PrintSnippet('aa')<CR>
-iabbr <unique> oo <C-R>=PrintSnippet('oo')<CR>
-iabbr <unique> xx <C-R>=PrintSnippet('xx')<CR>
-iabbr <unique> pa <C-R>=PrintSnippet('pa')<CR>
-iabbr <unique> in_ <C-R>=PrintSnippet('in')<CR>
-iabbr <unique> isa <BS><C-R>=PrintSnippet('isa')<CR>
-iabbr <unique> ise <C-R>=PrintSnippet('ise')<CR>
+" Classes.
+inoremap <unique> Cpod/ <C-R>=PrintSnippet('plain_old_data')<CR>
+inoremap <unique> Cc/ <C-R>=PrintSnippet('class')<CR>
+inoremap <unique> Cmc/ <C-R>=PrintSnippet('mutable_class')<CR>
+inoremap <unique> Csc/ <C-R>=PrintSnippet('subclass')<CR>
+inoremap <unique> Cmsc/ <C-R>=PrintSnippet('mutable_subclass')<CR>
+inoremap <unique> Ce/ <C-R>=PrintSnippet('enum')<CR>
 
-" <unique> Bitwise.
-iabbr <unique> llt <C-R>=PrintSnippet('llt')<CR>
-iabbr <unique> ggt <C-R>=PrintSnippet('ggt')<CR>
-iabbr <unique> nnn <C-R>=PrintSnippet('nnn')<CR>
-iabbr <unique> aaa <C-R>=PrintSnippet('aaa')<CR>
-iabbr <unique> ooo <C-R>=PrintSnippet('ooo')<CR>
-iabbr <unique> xxx <C-R>=PrintSnippet('xxx')<CR>
+" Error handling.
+inoremap <unique> et/ <C-R>=PrintSnippet('error_try')<CR>
+inoremap <unique> ec/ <C-R>=PrintSnippet('error_catch')<CR>
+inoremap <unique> ef/ <C-R>=PrintSnippet('error_finally')<CR>
+inoremap <unique> ew/ <C-R>=PrintSnippet('error_with')<CR>
 
-" <unique> Mathematical.
-iabbr <unique> ee <C-R>=PrintSnippet('ee')<CR>
-"iabbr <unique> asg <C-R>=PrintSnippet('asg')<CR>
-iabbr <unique> pp <C-R>=PrintSnippet('pp')<CR>
-iabbr <unique> pe <C-R>=PrintSnippet('pe')<CR>
-iabbr <unique> mi <C-R>=PrintSnippet('mi')<CR>
-iabbr <unique> mie <C-R>=PrintSnippet('mie')<CR>
-iabbr <unique> tt <C-R>=PrintSnippet('tt')<CR>
-iabbr <unique> dd <C-R>=PrintSnippet('dd')<CR>
-iabbr <unique> ttt <C-R>=PrintSnippet('ttt')<CR>
-iabbr <unique> mod <C-R>=PrintSnippet('mod')<CR>
+" Logical.
+inoremap <unique> lt/ <C-R>=PrintSnippet('less_than')<CR>
+inoremap <unique> gt/ <C-R>=PrintSnippet('greater_than')<CR>
+inoremap <unique> leq/ <C-R>=PrintSnippet('less_than_or_equal')<CR>
+inoremap <unique> geq/ <C-R>=PrintSnippet('greater_than_or_equal')<CR>
+inoremap <unique> le/ <C-R>=PrintSnippet('logical_equals')<CR>
+inoremap <unique> ne/ <C-R>=PrintSnippet('logical_not_equals')<CR>
+inoremap <unique> n/ <C-R>=PrintSnippet('logical_not')<CR>
+inoremap <unique> a/ <C-R>=PrintSnippet('logical_and')<CR>
+inoremap <unique> o/ <C-R>=PrintSnippet('logical_or')<CR>
+inoremap <unique> x/ <C-R>=PrintSnippet('logical_xor')<CR>
+inoremap <unique> in/ <C-R>=PrintSnippet('membership_test')<CR>
+inoremap <unique> pa/ <C-R>=PrintSnippet('parentheses')<CR>
 
-" <unique> Imports.
-iabbr <unique> im <C-R>=PrintSnippet('im')<CR>
-iabbr <unique> imc <C-R>=PrintSnippet('imc')<CR>
+" Mathematical.
+inoremap <unique> e/ <C-R>=PrintSnippet('assignment')<CR>
+inoremap <unique> ee/ <C-R>=PrintSnippet('assignment2')<CR>
+inoremap <unique> p/ <C-R>=PrintSnippet('addition')<CR>
+inoremap <unique> pe/ <C-R>=PrintSnippet('additionequals')<CR>
+inoremap <unique> pp/ <C-R>=PrintSnippet('plusplus')<CR>
+inoremap <unique> m/ <C-R>=PrintSnippet('subtraction')<CR>
+inoremap <unique> me/ <C-R>=PrintSnippet('subtractionsequals')<CR>
+inoremap <unique> mm/ <C-R>=PrintSnippet('minusminus')<CR>
+inoremap <unique> t/ <C-R>=PrintSnippet('multiplication')<CR>
+inoremap <unique> te/ <C-R>=PrintSnippet('multiplication_equals')<CR>
+inoremap <unique> d/ <C-R>=PrintSnippet('division')<CR>
+inoremap <unique> de/ <C-R>=PrintSnippet('division_equals')<CR>
+inoremap <unique> xx/ <C-R>=PrintSnippet('exponentiation')<CR>
+inoremap <unique> mod/ <C-R>=PrintSnippet('mod')<CR>
 
-" <unique> Comments.
-"iabbr <unique> com_ <C-R>=PrintSnippet('com')<CR>
-"iabbr <unique> mlcom_ <C-R>=PrintSnippet('mlcom')<CR>
+" Imports.
+inoremap <unique> ./ <C-R>=PrintSnippet('import')<CR>
+inoremap <unique> .c/ <C-R>=PrintSnippet('c_import')<CR>
 
-" <unique> Data reading.
-iabbr <unique> vo <C-R>=PrintSnippet('vo')<CR>
-"iabbr <unique> ao <C-R>=PrintSnippet('adr')<CR>
-"iabbr <unique> up <C-R>=PrintSnippet('up')<CR>
-"iabbr <unique> upe <C-R>=PrintSnippet('upe')<CR>
-
-
-
-
+" Variable dereferencing/declaring.
+inoremap <unique> vo/ <C-R>=PrintSnippet('value_of')<CR>
+inoremap <unique> vom/ <C-R>=PrintSnippet('value_of_math')<CR>
+inoremap <unique> vof/ <C-R>=PrintSnippet('value_of_function')<CR>
+inoremap <unique> vx/ <C-R>=PrintSnippet('variable')<CR>
 
 let g:root_file = expand('<sfile>')
 let g:root_dir = fnamemodify(g:root_file, ':h')
@@ -167,35 +166,32 @@ let g:file_ext_to_comment = {
 \ }
 
 let g:default_abbrev_to_snippet = {
-    \ 'sl': ['""'],
-    \ 'ch': ["''"],
-    \ 'pa': ['()'],
-    \ 'ne': ['!='],
-    \ 'leq': ['<='],
-    \ 'geq': ['>='],
-    \ 'gt': ['>'],
-    \ 'lt': ['>'],
-    \ 'nn': ['!'],
-    \ 'oo': ['||'],
-    \ 'xx': ['^'],
-    \ 'aa': ['&&'],
-    \ 'le': ['=='],
-    \ 'ggt': ['>>'],
-    \ 'llt': ['<<'],
-    \ 'ooo': ['|'],
-    \ 'aaa': ['&'],
-    \ 'xxx': ['^'],
-    \ 'nnn': ['~'],
-    \ 'ee': ['='],
-    \ 'ise': [':='],
-    \ 'isa': [':'],
-    \ 'ter': [ "a ? b : c;", ],
+    \ 'literal_string': ['""'],
+    \ 'parentheses': ['()'],
+    \ 'logical_equals': ['=='],
+    \ 'logical_not_equals': ['!='],
+    \ 'less_than_or_equal': ['<='],
+    \ 'less_than': ['>'],
+    \ 'greater_than_or_equal': ['>='],
+    \ 'greater_than': ['>'],
+    \ 'logical_not': ['!'],
+    \ 'logical_or': ['||'],
+    \ 'logical_xor': ['^'],
+    \ 'logical_and': ['&&'],
+    \ 'assignment': ['='],
+    \ 'assignment2': [':='],
+    \ 'ternary': [ "a ? b : c;", ],
     \ 'mod': ['%'],
-    \ 'pp': ['+'],
-    \ 'pe': ['+='],
-    \ 'mi': ['-'],
-    \ 'mie': ['-=']
+    \ 'addition': ['+'],
+    \ 'additionequals': ['+='],
+    \ 'subtraction': ['-'],
+    \ 'subtractionsequals': ['-='],
+    \ 'multiplication': ['*'],
+    \ 'multiplication_equals': ['*='],
+    \ 'division': ['/'],
+    \ 'division_equals': ['/=']
 \}
+
 let g:abbrev_to_snippet = {}
 let g:file_ext_to_snippet_map = {}
 
@@ -203,6 +199,8 @@ function LoadSnippets()
     let l:file_ext = expand('%:e')
     if has_key(g:file_ext_to_snippet_map, l:file_ext)
         let g:abbrev_to_snippet = g:file_ext_to_snippet_map[l:file_ext]
+    elseif has_key(g:file_ext_to_snippet_map, &ft)
+        let g:abbrev_to_snippet = g:file_ext_to_snippet_map[&ft]
     else
         let g:abbrev_to_snippet = {}
     endif
@@ -235,7 +233,7 @@ function PrintSnippet(abbreviation)
     if empty(l:snippet)
         return a:abbreviation
     elseif len(l:snippet) == 1
-       return l:snippet[0]
+        return l:snippet[0]
     endif
 
     " Ignore the character that triggered the abbreviation.
@@ -243,19 +241,6 @@ function PrintSnippet(abbreviation)
     call append('.', l:snippet)
     exec 'normal dd' .. len(l:snippet) .. '=$'
     return ''
-endfunction
-
-function Comment(uncomment)
-    let l:file_ext = expand('%:e')
-    if has_key(g:file_ext_to_comment, l:file_ext)
-    let l:comment = g:file_ext_to_comment[l:file_ext]
-    let l:sep = l:comment =~ '/' ? '#' : '/'
-        if a:uncomment
-            exec printf('s%s\v^(\s*)%s%s\1%s', l:sep, l:comment, l:sep, l:sep)
-        else
-            exec printf('s%s\v^(\s*)%s\1%s%s', l:sep, l:sep, l:comment, l:sep)
-        endif
-    endif
 endfunction
 
 autocmd! BufEnter,BufWinEnter,BufRead,BufNewFile * call SetSnippetForFiletype()

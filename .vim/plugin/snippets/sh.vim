@@ -2,29 +2,29 @@ let g:file_ext_to_snippet_map['sh'] = {
     \ 'ch': [
         \ "''",
     \ ],
-    \ 'ss': [
+    \ 'string_type': [
         \ '""',
     \ ],
-    \ 'mls': [
+    \ 'multiline_string': [
         \ 'A=$(cat <<HEREDOC',
                 \ 'txt',
                 \ 'HEREDOC',
                 \ ')',
     \ ],
-    \ 'vo': [ '"${A}"', ],
-    \ 'co': [ 'echo ""', ],
-    \ 'iff': [
+    \ 'value_of': [ '"${A}"', ],
+    \ 'print_stdout': [ 'echo ""', ],
+    \ 'if': [
     \ 'if [ see man test ]',
     \ 'then',
     \ 'exit',
     \ 'fi',
     \ ],
-    \ 'elif': [
+    \ 'elseif': [
     \ 'elif [ see man test ]',
     \ 'then',
     \ 'exit',
     \ ],
-    \ 'ife': [
+    \ 'else': [
         \ 'else',
     \ 'exit',
     \ ],
@@ -35,20 +35,20 @@ let g:file_ext_to_snippet_map['sh'] = {
     \ 'le': [ '-eq', ],
     \ 'ne': [ '-ne', ],
     \ 'group': [ '[  ]', ],
-    \ 'ae': [ 'A[0]=1', ],
-    \ 'fl': [
+    \ 'array_assignment': [ 'A[0]=1', ],
+    \ 'for_loop': [
         \ 'for A in B',
     \ 'do',
     \ 'exit',
     \ 'done',
     \ ],
-    \ 'wl': [
+    \ 'while_loop': [
         \ 'while [ A ]',
     \ 'do',
     \ 'exit',
     \ 'done',
     \ ],
-    \ 'sw': [
+    \ 'switch': [
         \ 'case "$A" in',
     \ 'cond )',
     \ 'exit',
@@ -58,12 +58,12 @@ let g:file_ext_to_snippet_map['sh'] = {
     \ ';;',
     \ 'esac',
     \ ],
-    \ 'swc': [
+    \ 'switchcase': [
         \ 'cond )',
     \ 'exit',
     \ ';;',
     \ ],
-    \ 'fx': [
+    \ 'function': [
         \ 'f() (',
     \ ')',
     \ ],
@@ -72,14 +72,20 @@ let g:file_ext_to_snippet_map['sh'] = {
     \ 'txt',
     \ 'HEREDOC',
     \ ],
-    "\ 'math': [ '"$(())"', ],
-    "\ 'pipe': [ '|', ],
-    "\ 'bg': [ '&', ],
-    \ 'sus': [ '"$()"', ],
-    "\ 'longarg': [ '--', ],
-    "\ 'shortarg': [ '-', ],
-    \ 'fma': [
-        \ "#!/bin/bash\n\bset -euo pipefail\nIFS=$'\\n\\t'\n\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" &> /dev/null && pwd)\n\n\nmain() (\n)\n\n\nmain",
+    \ 'value_of_math': [ '"$(())"', ],
+    \ 'value_of_function': [ '"$()"', ],
+    \ 'main_function': [
+        \ "#!/bin/bash",
+        \ "set -euo pipefail",
+        \ "IFS=$'\\n\\t'",
+        \ "",
+        \ "SCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" &> /dev/null && pwd)",
+        \ "",
+        \ "",
+        \ 'main() (',
+        \ ")",
+        \ "",
+        \ 'main "${@}"',
     \ ],
     "\ 'braceexpand': [ '{}', ],
     "\ 'append': [ '>>', ],
@@ -91,12 +97,12 @@ let g:file_ext_to_snippet_map['sh'] = {
     "\ 'home': [ '~/', ],
     "\ 'arg': [ '"$1"', ],
     "\ 'lenargs': [ '$#', ],
-    "\ 'whileread': [
-        "\ 'while read LINE',
-    "\ 'do',
-    "\ 'exit',
-    "\ 'done < A',
-    "\ ],
+    \ 'whileread_loop': [
+        \ 'while read -r LINE',
+    \ 'do',
+    \ 'echo "${LINE}"',
+    \ 'done',
+    \ ],
     "\ 'select': [
         "\ 'select A in B',
     "\ 'do',
@@ -108,10 +114,10 @@ let g:file_ext_to_snippet_map['sh'] = {
 \}
 
 "try
-    "iabbr <unique> math <C-R>=PrintSnippet('math')<CR>
+    "iabbr <unique> math <C-R>=PrintSnippet('value_of_math')<CR>
     "iabbr <unique> pi <C-R>=PrintSnippet('pi')<CR>
     "iabbr <unique> bg <C-R>=PrintSnippet('bg')<CR>
-    "iabbr <unique> ss <C-R>=PrintSnippet('ss')<CR>
+    "iabbr <unique> ss <C-R>=PrintSnippet('string_type')<CR>
     "iabbr <unique> la <C-R>=PrintSnippet('la')<CR>
     "iabbr <unique> sa <C-R>=PrintSnippet('sa')<CR>
     "iabbr <unique> shb <C-R>=PrintSnippet('shb')<CR>

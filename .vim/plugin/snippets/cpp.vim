@@ -1,11 +1,11 @@
 let g:file_ext_to_snippet_map['cpp'] = {
-    \ 'bm': [
+    \ 'timer': [
         \ "auto t0 = std::chrono::steady_clock::now();",
         \ "",
         \ "auto t1 = std::chrono::steady_clock::now();",
         \ "std::chrono::duration<double> init_time = t1 - t0;",
     \ ],
-    \ 'fma': [
+    \ 'main_function': [
         \ "auto main(int argc, char *argv[]) -> int {",
         \ "return 0;",
         \ "}",
@@ -13,46 +13,46 @@ let g:file_ext_to_snippet_map['cpp'] = {
     \ 'tu': [
         \ "std::tuple<>",
     \ ],
-    \ 'ae': [
+    \ 'array_assignment': [
         \ "auto a = std::array<A, n>();",
     \ ],
     \ 'len': [
         \ "std::size()",
     \ ],
-    \ 'ar': [
+    \ 'array_type': [
         \ "std::array<A, n>",
     \ ],
-    \ 've': [
+    \ 'vector_assignment': [
         \ "auto v = std::vector<A>();",
     \ ],
-    \ 'vv': [
+    \ 'vector_type': [
         \ "std::vector<A>",
     \ ],
-    \ 'seq': [
+    \ 'set_assignment': [
         \ "auto v = std::unordered_set<A>();",
     \ ],
-    \ 'se': [
+    \ 'set_type': [
         \ "std::unordered_set<A>",
     \ ],
-    \ 'me': [
+    \ 'map_assignment': [
         \ "auto v = std::unordered_map<A, A>();",
     \ ],
-    \ 'ma': [
+    \ 'map_type': [
         \ "std::unordered_map<A, A>",
     \ ],
-    \ 'lam': [
+    \ 'lambda_function': [
         \ "[&](auto& a) { return a; };",
     \ ],
-    \ 'ci': [
+    \ 'read_stdin': [
         \ "std::cin >> a;",
     \ ],
-    \ 'ce': [
+    \ 'print_stderr': [
         \ "std::cerr << a << std::endl;",
     \ ],
-    \ 'co': [
+    \ 'print_stdout': [
         \ "std::cout << a << std::endl;",
     \ ],
-    \ 'cl': [
+    \ 'class': [
         \ "/**",
         \ "*/",
         \ "class A {",
@@ -66,86 +66,86 @@ let g:file_ext_to_snippet_map['cpp'] = {
         \ "//",
         \ "}",
     \ ],
-    \ 'st': [
+    \ 'plain_old_data': [
         \ "/**",
         \ "*/",
         \ "struct A {",
         \ "};",
     \ ],
-    \ 'fme': [
+    \ 'method': [
         \ "/**",
         \ "*/",
         \ "auto A::f() -> void {",
         \ "}",
     \ ],
-    \ 'fs': [
+    \ 'function_signature': [
         \ "auto f() -> void;",
     \ ],
-    \ 'fx': [
+    \ 'function': [
         \ "/**",
         \ "*/",
         \ "auto f() -> void {",
         \ "}",
     \ ],
-    \ 'tr': [
+    \ 'error_try': [
         \ "try {",
         \ "}",
         \ "catch (std::exception& e) {",
         \ "}",
     \ ],
-    \ 'ife': [
+    \ 'else': [
         \ "else {",
         \ "}",
     \ ],
-    \ 'iff': [
+    \ 'if': [
         \ "if (a) {",
         \ "}",
     \ ],
-    \ 'elif': [
+    \ 'elseif': [
         \ "else if (a) {",
         \ "}",
     \ ],
-    \ 'wl': [
+    \ 'while_loop': [
         \ "while (a) {",
         \ "}",
     \ ],
-    \ 'fel': [
+    \ 'foreach_loop': [
         \ "for (const auto& aj : a) {",
         \ "}",
     \ ],
-    \ 'fl': [
+    \ 'for_loop': [
         \ "for (int j = 0; j < n; ++j) {",
         \ "}",
     \ ],
-\ 'ss': [
+\ 'string_type': [
 \ "std::string",
 \ ],
 \ 'ch': [
 \ "''",
 \ ],
-\ 'sl': [
+\ 'literal_string': [
 \ "\"\"",
 \ ],
-\ 'mls': [
+\ 'multiline_string': [
 \ "std::string a = \\",
 \ "\"\" \\",
 \ "+ \"\" \\",
 \ "+ \"\";",
 \ ],
-\ 'ssf': [
+\ 'format_string': [
 \ "std::string a = \\",
 \ "\"\" \\",
 \ "+ \"\" \\",
 \ "+ \"\";",
 \ ],
     "\ 'movable': [ "&&", ],
-    \ 'ttt': [ "std::pow(a, b)", ],
-    \ 'im': [ "#include <>", ],
-    \ 'imc': [ "#include ''", ],
-    \ 'val': [ "*", ],
+    \ 'exponentiation': [ "std::pow(a, b)", ],
+    \ 'import': [ "#include <>", ],
+    \ 'c_import': [ "#include ''", ],
+    "\ 'val': [ "*", ],
     "\ 'uniquepointer': [ "std::unique_ptr<A>", ],
     "\ 'uniquepointereq': [ "auto a = std::make_unique<A>()", ],
-    \ 'sd': [ "std::", ],
+    \ 'standardlib': [ "std::", ],
 \ }
 
 let g:file_ext_to_snippet_map['cxx'] = g:file_ext_to_snippet_map['cpp']

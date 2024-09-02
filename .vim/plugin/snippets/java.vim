@@ -1,5 +1,5 @@
 let g:file_ext_to_snippet_map['java'] = {
-    \ 'fma': [
+    \ 'main_function': [
         \ "/**",
         \ "*/",
         \ "class A {",
@@ -13,49 +13,49 @@ let g:file_ext_to_snippet_map['java'] = {
         \ "}",
         \ "}",
     \ ],
-    \ 'ae': [
+    \ 'array_assignment': [
         \ "A[] a = new A[n];",
     \ ],
-    \ 'ar': [
+    \ 'array_type': [
         \ "A[]",
     \ ],
-    \ 've': [
+    \ 'vector_assignment': [
         \ "ArrayList<A> a = new ArrayList<>();",
     \ ],
-    \ 'vv': [
+    \ 'vector_type': [
         \ "ArrayList<A>",
     \ ],
-    \ 'seq': [
+    \ 'set_assignment': [
         \ "HashSet<A> a = new HashSet<A>();",
     \ ],
-    \ 'se': [
+    \ 'set_type': [
         \ "HashSet<A>",
     \ ],
-    \ 'me': [
+    \ 'map_assignment': [
         \ "HashMap<A, A> a = new HashMap<A>();",
     \ ],
-    \ 'ma': [
+    \ 'map_type': [
         \ "HashMap<A>()",
     \ ],
-    \ 'lam': [
+    \ 'lambda_function': [
         \ "(a) -> { return a; };",
     \ ],
-    \ 'wi': [
+    \ 'error_with': [
         \ "try (A a = B;) {",
         \ "}",
         \ "catch (Exception e) {",
         \ "}",
     \ ],
-    \ 'ci': [
+    \ 'read_stdin': [
         \ "numRead = System.in.read(buf);",
     \ ],
-    \ 'ce': [
+    \ 'print_stderr': [
         \ 'System.err.println(String.format("%1$s", a));',
     \ ],
-    \ 'co': [
+    \ 'print_stdout': [
         \ 'System.out.println(String.format("%1$s", a));',
     \ ],
-    \ 'cl': [
+    \ 'class': [
         \ "/**",
         \ "*/",
         \ "class A {",
@@ -66,60 +66,60 @@ let g:file_ext_to_snippet_map['java'] = {
         \ "}",
         \ "}",
     \ ],
-    \ 'tr': [
+    \ 'error_try': [
         \ "try {",
         \ "}",
         \ "catch (Exception e) {",
         \ "}",
     \ ],
-    \ 'fel': [
+    \ 'foreach_loop': [
         \ "for (T aj : a) {",
         \ "}",
     \ ],
-    \ 'fx': [
+    \ 'function': [
         \ "/**",
         \ "*/",
         \ "void f() {",
         \ "}",
     \ ],
-    \ 'ife': [
+    \ 'else': [
         \ "else {",
         \ "}",
     \ ],
-    \ 'iff': [
+    \ 'if': [
         \ "if (a) {",
         \ "}",
     \ ],
-    \ 'elif': [
+    \ 'elseif': [
         \ "else if (a) {",
         \ "}",
     \ ],
-    \ 'wl': [
+    \ 'while_loop': [
         \ "while (a) {",
         \ "}",
     \ ],
-    \ 'fl': [
+    \ 'for_loop': [
         \ "for (int j = 0; j < n; ++j) {",
         \ "}",
     \ ],
-\ 'ss': [
+\ 'string_type': [
 \ "String",
 \ ],
 \ 'ch': [
 \ "''",
 \ ],
-\ 'sl': [
+\ 'literal_string': [
 \ "\"\"",
 \ ],
-\ 'mls': [
+\ 'multiline_string': [
 \ "String a = \\",
 \ "\"\" \\",
 \ "+ \"\" \\",
 \ "+ \"\";",
 \ ],
-\ 'ssf': [
+\ 'format_string': [
 \ 'String.format("%1%s", a);',
 \ ],
-    \ 'ttt': [ "Math.pow(a, b)", ],
-    \ 'im': [ "import ;", ],
+    \ 'exponentiation': [ "Math.pow(a, b)", ],
+    \ 'import': [ "import ;", ],
 \}
