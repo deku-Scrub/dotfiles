@@ -1,24 +1,31 @@
 # want vi to be the default editor for readline
 set editing-mode vi
 set bell-style none
+set show-all-if-ambiguous on
+#set menu-complete-display-prefix on
+set keyseq-timeout 0
+set colored-completion-prefix on
+set colored-stats on
+set completion-ignore-case on
+
 
 # vi settings
 $if mode=vi
     set keymap vi-insert
-#"ll.": "para\C-vl\C-vlel -j1 ''"
+    #"ll;": "bash /tmp/a.sh\C-j"
     "sd.ll": "parallel -j1 ''"
     "sd.lln": "parallel -j1 -N10000 ''"
-    "sd.p": "python3 "
-    "sd.pm": "python3 -m "
-    "sd.pi": "python3 -m pip install -t pylib "
-    "sd.pl": "python3 -m pip list "
+    "sd.p": "python3"
+    "sd.pm": "python3 -m"
+    "sd.pi": "python3 -m pip install -t pylib"
+    "sd.pl": "python3 -m pip list"
     "sd.llre": "parallel -j4 -N10000 'grep -iE \"\"'"
     "sd..": "--help "
     "sd.re": "grep -iIE ''"
     "sd.rer": "grep -iIE -r '' ."
     "sd.f": "find . -iregex '.*.*'"
     "sd.ff": "find . -type f -iregex '.*.*'"
-    "sd.sed": "sed -r -e 's///g'"
+    "sd.si": "sed -r -e 's///g'"
     "sd.du": "du -h -d0 ."
     "sd.df": "df -h"
     "sd.col": "column -c0 -t -s','"
@@ -37,6 +44,7 @@ $if mode=vi
     " aa ": " && "
     " oo ": " || "
     " pa ": "[  ]"
+    #TAB: menu-complete
     #";": "-"
     #";.": "\;"
     #set keyseq-timeout 0
