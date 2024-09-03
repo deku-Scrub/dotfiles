@@ -171,7 +171,7 @@ let g:default_abbrev_to_snippet = {
     \ 'logical_equals': ['=='],
     \ 'logical_not_equals': ['!='],
     \ 'less_than_or_equal': ['<='],
-    \ 'less_than': ['>'],
+    \ 'less_than': ['<'],
     \ 'greater_than_or_equal': ['>='],
     \ 'greater_than': ['>'],
     \ 'logical_not': ['!'],
