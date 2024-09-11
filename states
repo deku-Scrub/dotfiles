@@ -1,0 +1,723 @@
+#haskell
+guards
+pattern matching on function signatures
+list comprehension
+class constraints
+where
+let, let in
+safe package
+maybe, either
+function composition
+operator section
+multiple dispatch
+algebraic data type record syntax
+derives
+type synonym
+fixity
+class where
+instance where
+Functor, fmap, applicative functor (interface for mapping specific data types)
+kind
+main, do, <-, return, when, catch
+foldl'
+monoid (interface for folds on specific data types and operations)
+newtype
+foldable
+monad (select function based on result of other function, state machine, value with context, apply function based on previous state)
+do notation
+
+# rust
+immutable by default
+tuple, destructuring
+expression if, expression loop, expression break
+loop labels
+ownership, drop, move
+    variables owned by the enclosing scope
+    destroyed at the end of scope
+    ownership can be transferred, destroyed at the end of the new owner's scope
+    if new owner is in same scope, old owner is invalid (compile error if used)
+    mutable reference cannot simultaneously exist with other references,
+      immutable or not (compile time error)
+call by value (copy or move), call by reference (no move)
+tuple return
+slice
+struct, tuple struct
+struct attributes
+enum,
+impl (definition and implementation of struct/enum methods)
+option, result
+match, pattern matching, @ binding
+if let else, while let
+expect, ? operator
+generics, type traits
+traits (interfaces), trait bounds, where
+lifetimes (scopes across which a variable is initialized and destroyed)
+closure, move keyword
+smart pointers, Box, Rc, RefCell (interior mutability), reference cycle
+implicit deref coercion
+channels
+auto-unlock mutex, Arc (thread-safe Rc)
+Send trait (ownership can be transferred to thread)
+Sync trait (reference can be used in thread)
+dyn trait objects
+  variables that can be any type that implement a trait
+  dynamic typing/duck typing
+unsafe
+associative types
+operator overloading
+supertraits
+newtype
+type alias
+never type
+function pointer
+macros
+
+# c++
+Concept: sets of constraints.
+Constraint: predicate of requirements a type must fulfill.
+Requires clause: predicate of concepts a type must fulfill.
+The entire constraint is the logical and of:
+  * the constraints of each parameter,
+  * the constraints in the requires clause,
+  * the constraints of each type.
+
+# lz
+
+Given a string `x` and subsequence `q`, the following function `f`
+handles all possible cases for processing it:
+
+```
+f(x, q) = {
+    nothing, `x` is empty;
+    nothing, has_subseq(x, q) is false;
+    find_subseq(x, q), otherwise.
+}
+```
+
+The function `has_subseq(x, q)` checks that `x` contains a subsequence
+`q`:
+
+```
+has_subseq(x, '') = true
+has_subseq('', q) = false
+has_subseq(x, q) = {
+    false, len(x) <= len(q);
+    has_subseq(x[1:], q[1:]), x[0] == q[0];
+    has_subseq(x[1:], q), x[0] != q[0].
+}
+```
+
+The function `find_subseq(x, q)` finds the subsequence `q` in `x`
+that has the best score `s`:
+
+```
+find_subseq(x, q) = {
+    best_subseq(x, q), otherwise.
+    prune(G), G = graph_subseqs(x, q, 0) and len(G) = len(q);
+    [], otherwise.
+}
+```
+
+The function `best_subseq(x, q)` first creates a graph encoding all possible
+subsequences `q` found in `x`.  This is done by `graph_subseqs(x, q, j)`.
+Given an offset `j` into `x`, `graph_subseqs`
+builds a graph `G` such that `G[k]` lists all occurences of `q[k]` in `x[j:]`.
+Each `G[k]` is a strictly increasing list of indices.  Additionally, each
+index is larger than `G[k-1][0]`.  If only the first `k` letters of `q`
+are found in `x`, then `G` will only have `k` entries instead of `len(q)`.
+The work of finding occurences of a letter `s` in `x[j:]` is done by
+`find_occurences(x, s, j)`.
+
+```
+graph_subseqs('', q, _) = []
+graph_subseqs(x, '', _) = []
+graph_subseqs(x, q, j) = {
+    [], j >= len(x);
+    [], if occurences == [];
+    occurences + graph_subseqs(x, q[1:], occurences[0] + 1), if occurences != [];
+        where occurences = find_occurences(x, q[0], j).
+}
+find_occurences('', s, j) = []
+find_occurences(x, '', j) = []
+find_occurences(x, s, j) = {
+    [], j >= len(x),
+    [j] + find_occurences(x, s, j + 1), x[j] == s,
+    find_occurences(x, s, j + 1), x[j] != s,
+}
+```
+
+As an example, given `x = "hello world"` and `q = "elowol"`, `G` is 
+
+```
+[
+    [1],
+    [2, 3, 9],
+    [4, 7],
+    [6],
+    [7],
+    [9],
+]
+```
+
+The graph denoted by `G` is n-partite, where `n` is the largest index
+of `q` such that `x` contains `q[:n]`.  Each list `G[k]` is its own
+partition in which no two nodes (indices) are connected.  Edges only
+exist between nodes in consecutive layers `G[k]` and G[k+1]`, with the
+property that a node `a` in `G[k]` is connected to a node `b` in
+`G[k+1]` if and only if `a < b`.
+
+Looking at the example graph, this property allows it to be pruned to
+remove nodes that have no incoming or outgoing edges.  Paths through
+such nodes terminate early; that is, no full subsequence exists that
+passes through them.  Pruned, the example becomes:
+
+```
+[
+    [1],
+    [2, 3],
+    [4],
+    [6],
+    [7],
+    [9],
+]
+```
+
+The function `prune(G)` handles this pruning of graph `G`:
+
+```
+prune([]) = []
+prune([x]) = [x]
+prune(G) = {
+    layer ++ P, layer != [],
+        P = prune(G[1:]),
+        layer = [x | x in G[0] and any(y | y in P[0] and x < y)];
+    [], otherwise.
+}
+```
+
+If ever pruning removes all nodes of a layer, then `prune` will output a
+graph with fewer layers than the input.  The ouput will consist of only
+those non-empty layers occuring before the first empty one.
+
+The pruned graph `P` is the smallest graph containing every occurence
+of subsequence `q` in `x` (technically, `q[len(P)]`, but for simplicity,
+assume `len(P) == len(q)`).  Each path is `q` passing through different
+locations in `x`.
+
+Any layer with only one node can be removed.
+
+    1       x 0 0
+    2 3 9   x x x  
+    4 7     x x 0
+    6       x 0 0
+    7       x 0 0
+    9       x 0 0
+
+Matrix representation of `P`.  The graph traversal can be replaced
+with computations on a matrix.  Every nonzero entry (nodes `n`) starts
+with the value `pi(n)`.  Paths and their scores are incrementally built
+from layer to layer.  The entries in layer `0 < j < len(P)` contain
+two values: the best score of the path from a node in layer 0 to one
+in layer j, and the index of the node in the previous layer `j - 1`
+from which the best path continues.  These two values allow computing
+the best path at any given layer (by taking the maximum), and
+recovering the best path (by indexing `P`).
+
+An entry `n` in the second layer or beyond is computed by taking
+the maximum of the scores in the previous layer of all nodes that
+have edges to `n`.  Each edge is scored using a function of the edge.
+The highest score and its index of the node in the previous layer
+are recorded in the entry for `n`.
+
+p(a), p(b | a), p(a, b) = p(a) * p(b | a)
+  1 2 3 4 6 7 9
+1 x
+2   x x       x
+3       x   x
+4         x
+5           x
+6             x
+
+f(n, m; x) = d(n, m) + s(m; x)[0]
+s(n in G[0]) = pi(n_0k), 0 <= k < n_nodes
+s(n in G[j]) = [pi(n; x) + l, l*],
+    l = max(a),
+    l* = argmax(a),
+    a = [f(n, m; x) | m in G[j-1], m < n],
+    1 <= j < len(P).
+
+Although this works, every edge is traversed.  In the worst case,
+it requires time quadratic in the number of nodes.  This can be
+reduced to a linear dependency.
+
+Sjk0 = -inf
+Sjk1 = 0
+S0k0 = pi(n0k)
+Sjk = [s, j_s],
+    a = d(njk, np) + Sp0,
+    b = d(njk, nj-1_Sp*1) + Sj-1_Sp*0,
+    p = j-1_k-1,
+    p* = j_k-1,
+    s = pi(njk) + max(a, b),
+    j_s = k-1 if a > b else Sp*1.
+
+All nodes start with `pi(n)` as before.  The leftmost nodes past
+the first layer, that is, `G[j, 0]` for `0 < j < len(P)`, are also
+computed as before using `s(n in G[j])`.  The difference is in the
+addition of a third entry `m*` denoting one past the index of the last
+edge.  This allows the next node to start its computation at the
+first edge that has not been traversed.  The score for the remaining
+nodes in `G[j, k]`, `1 <= k < len(G[j])`, are computed by taking the
+maximum score of the nodes in `G[j-1, m*:]` and `G[j-1, l*]`,
+where `m* = s(G[j, k-1])[2]` and `l* = s(G[j, k-1])[1]`.
+
+The `score_graph(G)` function finds the optimal path in graph `G`
+from a node in its first layer to one in its last layer.  It combines
+the scored layers computed by `score_layer(G, l)` for layers `l` from 0 to
+`len(G)`.  That is, `S = [score_layer(G, 0), ..., score_layer(G, len(G) - 1)]`.
+This represents the score matrix `S`, where `S[j, k]` is the tuple
+`[score, previous_node]` representing the best score of a path from
+a root node in `G[0]` to node `G[j, k]`.  The best path ends at the
+node in `S[-1]` with the highest score.  Calling this node `s*`, it is
+possible to recreate the optimal path by traversing the stored nodes:
+
+```
+s* <- S[l-1, s*[1]] <- S[l-2, S[l-1, s*[1]]] <- .. <- S[0, ...S[l-1, s*[1]]]
+```
+
+where `l = len(S) - 1`.
+
+The row `S[j]` is computed by `score_layer(G, j)`.  The first layer's scores,
+`S[0, k]`, are mapped to `(pi(k), 0)`.  Subsequent layers `S[j]` are computed
+by following the edges between nodes in layer `j` and `j-1`.  However, not
+all edges are traversed, as in the brute force approach.  Rather, in the function
+`score_nodes`, for each node `G[j, k]`, the subset `G[j-1, m:n]` of nodes
+connected to it is used, where `G[j-1, n] < G[j, k] < G[j-1, n+1]` and
+`G[j-1, m] < G[j, k-1] < G[j-1, m+1]`.
+
+Thre are two special cases.  The first, when `k` is 0, is handled by
+setting `m` to 0 and computing scores betwen `G[j, 0]` and `G[j-1, 0:n]`.
+The second, when `m >= len(G[j])` and `k < len(G[j])` is handled by setting
+all `S[j, k*] = [-inf, 0]` for `k <= k* < len(G[j])`.
+
+The output of this process of `score_nodes` for layer `j` is a list
+`S[j]` of scores `[s, n]` where `s` is the highest score and `n` is
+the node in layer `j-1` from which the highest score was acheived.
+
+Next, in function `score_layer(j)`, the output `b1` of `score_nodes(j)`
+just described is compared with another list of scores, `b2`.  This
+list contains an alternative score `b2[k]` that scores the edge to
+`G[j, k]` from `G[j-1, b1[k-1]]`.  This one computation represents the
+best score out of all edges from `G[j-1, :n<G[j, k]]` to `G[j, k]`,
+without having to compute all scores from those edges which results
+in quadratic time complexity.  When `k = 0`, `b2[0]` is simply `b1[0]`.
+
+The final entry `S[j, k]` is `max(b1[k], b2[k])`, where the maximum
+uses the first element (the score) for comparison.
+
+Using `m` and `n` as before to denote the range in `G[j-1]` for which
+scores from edges to `G[j, k]` are computed, the reason why the set of
+edges can be reduced to `G[j-1, b1[k]]` and `G[j-1, m:n]`, as opposed to
+the brute force solution `G[j-1, :n]`, is as follows.  The score `s_ak`
+for an edge from `G[j-1, a]` to `G[j, k]` is computed as
+
+```
+s_ak = d(G[j, k], G[j-1, a]) + pi(G[j, k]) + S[j-1, a, 0]
+```
+
+and the argmax in the range `m <= a < n` is
+
+```
+m* = argmax(s_ak), m <= a < n.
+```
+
+Note that the second term `pi(G[j, k])` is constant throughout the
+argmax operation, thus has no effect on its output and can be ignored.
+The final term `S[j-1, a, 0]` is constant with respect to `k`, meaning
+it has no effect on the output for different `G[j, k]`; it too can be
+ignored.  Thus:
+
+```
+m* = argmax(s_ak), m <= a < n,
+   = argmax(d(G[j, k], G[j-1, a]))
+```
+
+When `d` is a strictly decreasing function of `k`, the order of the
+sequence `a_j = d(G[j, k], G[j-1, a_m]), ..., d(G[j, k], G[j-1, a_n])`
+is preserved for all valid `k`.  This means `argmax(s_ak) = argmax(s_a_k-1)`.
+Thus, since `b1[k] = argmax(s_ak)` for `G[j-1, a] < G[j, k]`, then
+`argmax(s_a_k+1) = b1[k]` for the same range.  It is only necessary to
+compute the remaining scores for nodes in `G[j-1, b1[k, 1]:n]` where
+`G[j-1, n-1] < G[j, k] < G[j-1, n]`.  The maximum is that of the nodes
+in `G[j-1, m:n]` and the single node `G[j-1, b1[k, 1]]` which is the
+maximum of `G[j-1, :m]`.
+
+```
+score_nodes(_, _, [], _; _) = []
+score_nodes(_, [], _, _; _) = []
+score_nodes([], _, _, _; _) = []
+score_nodes(S1, l1 = G[j-1], l2 = G[j], m; x) = {
+    [(-inf, 0)] ++ score_next_node(m), m >= len(l1);
+    [(a*[0] + pi(l2[0]), a*[1])] ++ score_next_node(a[-1, 1]), otherwise,
+    a = [(S1[r, 0] + d(l1[r], l2[0]; x), r) | r in m..len(l1) and l1[r] < l2[0]],
+    a* = max(a, comparison_value(aj) = aj[0]),
+    score_next_node(r) = score_nodes(S1, l1, l2[1:], r).
+}
+score_layer([], _) = []
+score_layer(_, []) = []
+score_layer(G, G[0]) = [(pi(n), 0) | n in G[0]]
+score_layer(G, l = G[j]) = {
+    b1[0] ++ elemwise_max(b1[1:], b2, comparator = (e1, e2) -> e1[0] < e2[0]),
+    S = score_layer(G[j-1]),
+    b1 = score_nodes(S, G[j-1], l, 0),
+    b2 = 1..len(b1) | k -> (d(G[j-1, b(k)], l[k]) + S[b(k), 0] + pi(l[k]), b(k)),
+    b(k) = b1[k-1, 1].
+}
+score_graph(G) = reconstruct_path(0..len(G) | k -> score_layer(G, G[k]))
+reconstruct_path([]) = []
+reconstruct_path([x]) = [max(x, comparison_value(xj) = xj[0])]
+reconstruct_path(S) = S[r[0, 1]] ++ r, r = reconstruct_path(S[1:])
+```
+
+The task graph is a directed acyclic graph with nodes represented as
+tasks and directed edges from a source task to destination task if the
+destination task requires the source task to have completed its work
+before it can begin working.  Each task has a set of required files
+and tasks it needs in order to run.  These are the tasks's inputs.
+A task produces outputs in the form of files called targets.  Given a
+root task to run, it will only do so if every task it depends on, either
+directly or indirectly along any path of arbitrary length from the root,
+has finished its job.
+
+```
+Edge t0 -> t1 exists iff t1 depends on t0.
+tj: files x tasks -> files; input files are "required files,"
+                            input tasks are "required tasks,"
+                            output files are "targets."
+```
+
+From the root, the graph is traversed until it reaches a task that
+depends only on required files, not on other tasks.  These are
+leaf tasks.  Paths to all leaf tasks reachable from the root are
+traversed in a depth first manner.  Traversal from a leaf back to
+the root proceeds by sequentially visiting each task, ensuring
+that the task currently visited has successfully completed before
+visiting the next task.  How this is ensured requires a state transition
+graph that is the topic of what follows.
+
+```
+Given a task t:
+traverse(t) = S(t, required_files); t depends on no tasks (no incoming edges)
+traverse(t) = S(t, required_files, traverse(t_j), ..., traverse(t_k));
+              edges t_j -> t, ..., t_k -> t exist.
+S(t) = S(t, [])
+S(t, inputs) = {
+    A(t, inputs), if T(inputs);
+    X(t, inputs), if target = "unknown" for any target of t;
+    B(t, targets), otherwise.
+}
+T(inputs) = any inputs are in state "changed"
+A(t, inputs) = A1(required_files), X(t, inputs)
+A1(required_files) = {
+    t = "unknown" | t's a target of any task depending on a required_file,
+    r = "unchanged" | r in required_files and r = "changed."
+}
+X(t, inputs) = {
+    B(t, X1(t(inputs))), if grouped;
+    B(t, X1(t_1(inputs)), ..., X1(t_n(inputs)))
+        | target t_j != "unknown", otherwise.
+}
+X1(targets | t in targets is "unknown") = {
+    t = "changed" | t in targets and is modified;
+    t = "unchanged" | t in targets and is not modified.
+}
+B(t, targets if all targets are in a known state) = {
+    B3(targets), if any target = "changed" and t is the root;
+    B2(targets), if all targets = "unchanged";
+    B1(targets), if any target = "changed".
+}
+B1(targets) = targets
+B2(outputs) = nothing
+B3(outputs) = nothing
+```
+
+Each target file can be in one of three states:
+
+1) changed
+2) unchanged
+3) unknown
+
+The "unchanged" state represents the terminal state in which
+any tasks depending on the target file need not execute.
+
+The "changed" state requires dependent tasks to execute.  The
+task that generates the changed target file need not run again.
+
+The "unknown" state requires the task that generates the target
+file to run agan.
+
+Required files can only be in two states: "changed" and "unchanged."
+The "unknown" state does not apply because they are not generated
+by tasks.
+
+During traversal of the task graph, when a required file is found that
+is in the "changed" state, all targets are set to the "unknown" state.
+Only after this is the state of the required file set to "unchanged."
+This prevents targets that have transitioned to the "unchanged" state
+from needless regeneration if generating another target produces an error.
+
+```A
+rf[changed] -> t[unknown] -> rf[unchanged]
+```
+
+More generally, when a file is required by multiple tasks and is in the
+"changed" state, then all targets across all those tasks are transitioned
+to the "unknown" state.  Once these transitions are complete, the
+required file moves to the "unchanged" state.
+
+```B
+rf[changed] -> t_1[unknown] -> ... -> t_n[unknown] -> rf[unchanged]
+```
+
+After this, the tasks associated with each "unknown" target are
+executed.  Upon successful execution, states are set to "unchanged."
+A failed execution maintains the "unknown" state so that the task
+is rerun after restarting the workflow.
+
+```
+rf[changed] -> t_j[unknown] -> failure -> t_j[unknown]
+```
+
+If, after failing, a target's required files change, then no special
+case is required since the aformentioned case of a required file
+change covers this case as well.
+
+```
+rf[changed] -> t_j[unknown] -> failure -> rf[changed] -> B
+```
+
+When a task completes -- all targets were created successfuly --
+its targets are in either the "changed" or "unchanged" state.
+For the purpose of determining whether or not a dependent task
+should execute, these targets can be considered as required files,
+thus the aforementioned cases apply without the need for new ones.
+
+Generalizing further, if multiple required files have changed,
+then the union of all targets that directly depend on at least
+one are set to the "unknown" state.  Once this is done, the
+states of all required files are set to "unchanged."
+
+```C
+rf_1[changed]                                        -> rf_1[unchanged]
+...          \                                      /
+rf_j[changed] -> t_1[unknown] -> ... -> t_n[unknown] -> rf_j[unchanged]
+...          /                                      \
+rf_m[changed]                                        -> rf_m[unchanged]
+```
+
+The state transitions in this generalized scenario follow the same
+rules as in the less generalized ones.
+
+Since the set of targets can encompass multiple tasks, this ensures
+every task directly depending on any modified required file will run.
+The output of successfully executing every task is a set of files
+with new states (either "changed" or "unchanged"); that is, a set
+of files required by other tasks.  Thus the same process is applied
+for those tasks.
+
+Aggregating all this information, the conditions to run a task are:
+
+* any of its required files is in the "changed" state, or
+* any of its targets is in the "unknown" state.
+
+Files can be in one of the following states:
+
+* changed,
+* unchanged,
+* unknown.
+
+Every state except "unknown" are collectively referred to as "known."
+
+Tasks can be in one of the following states:
+
+* Tj
+  * there exists a rf[changed] in task `j`
+* A
+  * all t[unknown] and rf[unchanged]
+  * all targets `t` depending on required file `rf` are in
+    the "unknown" state simultaneously as `rf` is in the "unchanged"
+    state.  None are being generated.
+* X
+  * there exists a t[unknown] and a t[known]
+  * some targets are in the "unknown" state while others are in the
+    other states.  The task is generating targets.
+* B1
+  * all t[known] and there exists t[changed]
+  * all targets are either in the "unchanged" or "changed" states,
+    there being at least one of each.  The task has finished
+    generating targets.
+* B2
+  * all t[unchanged]
+  * all targets are in the "unchanged" state.  The task has finished
+    generating targets.
+* B3
+  * same as B1 except the current task is the root.
+* E
+  * Same as X but there has been an error in generating at least
+    one target.
+
+The possible transitions are:
+
+* Tj -> A
+* A -> X
+* X -> E
+* X -> B1
+* X -> B2
+* X -> B3
+* E -> X
+* E -> Tk, k <= j
+* B1 -> Tj+1
+
+Although B1 and B3 represent the same logical state, there cannot
+be a change out of B3 because only the root reaches that state,
+thus there are no more tasks Tj+1 to transition to.  No special
+changes of file state are needed here because if a new workflow
+was started from a different root but that includes the previous
+root, then tasks depending on the previous root will correctly
+be executed.  If all the files were set to "unchanged," resulting
+in a transition to B2, then no dependent task would run despite
+files having changed.
+
+Start state Tj disregards the state of target files.  This allows
+transitioning to any Tk for k <= j if Tj experiences an error and the
+resolution requires modifying a required file from a task Tj directly
+or indirectly depends on.
+
+The error state E can transition to the execution state X, bypassing
+the start state Tj.  This allows continuing the current task when
+the error was not caused by a required file, but rather something
+external to the task, such as an operating system failure or power
+failure.
+
+The final states B1, B2, and B3 denote those in which the task has
+been successfully executed and all targets and they all are in
+a known state.  For this, state X cannot change the state of a
+target to a known state unless the task has successfully executed
+and the target exists.  If X transitions to E, then the state of
+a target remains "unknown."  No removal of potentially corrupt
+targets is needed because a target's existence is not sufficient
+to know that it was generated without error; the target's state
+must also be a known state.
+
+The preparatory state A transitions files to states such that state
+X can be visited and the task executed.  All target states are first
+transitioned to "unknown," followed by a transition to "unchanged"
+for all required files.  The first change allows the task to know
+which targets to execute on.  The second change is an acknowledgement
+that required files have changed and that an action has been taken
+to move onwards towards the next step.  If A is ever revisited without
+any changes to required files (currently impossible), there is no
+need to reset the state of any targets; state moves onto X which
+executes any "unknown" targets.
+
+Boundary cases include the following:
+
+* missing required files
+* missing targets
+* initial state of the system
+  * no targets might exist
+
+Since required files must exist, the absence of any is a violation
+of the system's assumptions, thus the workflow will not run.  Missing
+targets are assigned to the "unknown" state so that their tasks must
+generate them.  Combining these two forms a solution to the initial
+state: all required files must exist and all targets are in the
+"unknown" state.  Equivalently, all required files exist and begin
+in the "changed" state.
+
+The initial tasks T0 are leaf tasks -- those that depend only on
+required files and not any task.  By traversing the graph from a
+given task, all reachable initial tasks are visited first, resulting
+in a set of initial tasks.  Then processing proceeds back to the
+root following the state transitions.
+
+Errors are possible in any state.  When one occurs, execution
+must resume at either the failed state or a previous state.
+
+The state T can fail if the evaluation of its predicate is interrupted
+(for example, power failure or missing inputs).  Since T makes
+no changes to file states, the workflow will resume at T until the
+error is solved.
+
+State A fails similarly to T.  The output of A is a state change
+where are targets are "unknown" and all required files are "unchanged."
+Since the states of targets are modified before those of required
+files, a failure in modifying target states means at least one
+required file is "changed."  Thus, in a restart of the workflow,
+the previous state T will evaluate to true and A will run again.
+Errors modifying the state of required files result in at least
+one state remaining "changed."  Thus, T will evalute to true in
+the next run of the workflow, and A will be revisited.
+
+Errors in state X can occur in evaluating `t(inputs)` or afterwards
+when changing the states of the targets.  Since all file states
+start as "unknown," on entry to X, and no state is changed until
+`t` successfully finishes, an error evaluating `t` preserves the
+"unknown" state of targets.  Thus, when rerunning the workflow,
+`t` must run again.  Similarly, an error modifying the state from
+"unknown" to a known state maintains the "unknown" state, therefore
+X will execute upon restarting the workflow.
+
+An error in state B occurs if a target is missing.  When true, a
+restart of the workflow will not transition past B but re-execute
+it, regardless of whether or not the missing targets are still so.
+
+The state of the workflow that had not reached a terminal state
+might change through manual intervention of a user.  This could
+happen, for example, between workflow runs during a resolution
+of an error.  If the workflow crashes in state A, then manual
+intervention might set all inputs to the "unchanged" state, meaning
+T will evaluate to false and A will not re-execute; instead, the
+workflow will visit the next task.  Similary, after an error in
+state X, manual changes of state to the required files or targets
+could result in the next run of the workflow bypassing the current
+task and visiting the next one.  This is problematic because an
+error should only cause the workflow to start at or behind the
+state of the previous task.  To mitigate this, the state needs to
+be saved after every operation that changes it (in case of errors),
+which can be prohibitivaly expensive.  This also makes it impossible
+for a user to fix errors because the error state will always be
+loaded, ignoring changes that preserve the validity of the workflow.
+There could be a way to determine if a manual change preserves
+the validity, that is, causes the workflow to begin at or before
+the previous state.  This would also involve saving state after
+certain operations, though at a coarser and therefore more performant
+level.  Specifically, the set of currently visited tasks is saved
+when transitioning to a new task.  Then, when the workflow is
+executed, it checks that the set of start tasks contains no
+task that occurs after the saved set.  In other words, no start
+task depends on a saved task.  This is slightly complicated by
+the fact that a saved task can depend on another saved task, but
+might be solvable by considering only the subgraph where the saved
+tasks are roots.  If a start task in the new workflow does not
+exist in the subgraph, then the manual state changes were invalid.
+This approach adds minimal overhead to the workflow execution outline
+above.  To the traversal is added a check at each task that a saved
+task has not been passed.  Note this is only a problem when running
+the same workflow with the same root node as the previous run.  With
+that restriction, paths can be saved, and the next invocation of
+the workflow would have to travel along the same paths as the previous
+invocation.  If this is not true, then the manual state changes were
+invalid -- maybe.  The user could have intentionally created a new
+workflow for whatever reason: a solution to an error, new functionality,
+optimization, etc.  These complications probably suggest that
+checking for invalid manual state changes is not worth pursuing --
+the changes could in fact be valid.  The problem of knowing the
+validity of a manual state change is undecidable.  It is only
+decidable in the context of an automated workflow run where there
+are clearly defined rules for state transitions followed mechanically
+by an algorithm.
+
+Manual state changes by the user.
+Boundary errors on exit after main computation is done.
+Improperly visiting a state when the assumptions to visit it are invalid.
