@@ -154,6 +154,7 @@ let g:root_dir = fnamemodify(g:root_file, ':h')
 
 let g:file_ext_to_comment = {
     \ 'vim': '"',
+    \ 'hs': '--',
     \ 'py': '#',
     \ 'sh': '#',
     \ 'java': '//',
@@ -163,6 +164,7 @@ let g:file_ext_to_comment = {
     \ 'cxx': '//',
     \ 'hpp': '//',
     \ 'h': '//',
+    \ 'rs': '//',
 \ }
 
 let g:default_abbrev_to_snippet = {
