@@ -122,4 +122,9 @@ let g:file_ext_to_snippet_map['java'] = {
 \ ],
     \ 'exponentiation': [ "Math.pow(a, b)", ],
     \ 'import': [ "import ;", ],
+    \ 'timer': [
+        \ 'long t0 = Instant.now().toEpochMilli();',
+        \ 'long t1 = Instant.now().toEpochMilli();',
+        \ 'System.out.println(String.format("%1$s", t1 - t0));',
+    \ ],
 \}
