@@ -16,7 +16,7 @@ Overwrite files during a merge:
     $ git reset --hard origin/branch
 
 Delete a remote branch:
-    $ git pull origin --delete branch
+    $ git push origin --delete branch
 
 Combine two commits into one:
 Source: http://stackoverflow.com/questions/2563632/how-can-i-merge-two-commits-into-one

@@ -17,3 +17,6 @@ qmk flash -kb moonlander-layout -km moonlander-layout
 
 Functions `MO`, `LM`, and `LT` switch to a layer as long as a key is held.
 Functions `OSL`, `TG`, and `TO` switch to a layer on tap.
+
+# Test custom layouts
+https://cyanophage.github.io/index.html
