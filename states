@@ -29,8 +29,9 @@ do notation
 # rust
 immutable by default
 tuple, destructuring
-expression if, expression loop, expression break
+expression if, expression loop (`let a = loop{break 8;}`), expression break
 loop labels
+range (`a..b`, `a..=b`)
 ownership, drop, move
     variables owned by the enclosing scope
     destroyed at the end of scope
