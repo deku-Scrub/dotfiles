@@ -102,6 +102,7 @@ inoremap <unique> Cmc/ <C-R>=PrintSnippet('mutable_class')<CR>
 inoremap <unique> Csc/ <C-R>=PrintSnippet('subclass')<CR>
 inoremap <unique> Cmsc/ <C-R>=PrintSnippet('mutable_subclass')<CR>
 inoremap <unique> Ce/ <C-R>=PrintSnippet('enum')<CR>
+inoremap <unique> Ci/ <C-R>=PrintSnippet('iterator')<CR>
 
 " Error handling.
 inoremap <unique> et/ <C-R>=PrintSnippet('error_try')<CR>
